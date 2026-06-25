@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExperienceHub - Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-white">
+
+
+<div class="min-h-screen flex items-center justify-center px-6">
+
+    <div class="max-w-6xl w-full grid lg:grid-cols-2 gap-10 items-center">
+
+        <!-- Left Side -->
+        <div class="hidden lg:flex flex-col items-center">
+
+            <img
+                src="https://media.giphy.com/media/f3iwJFOVOwuy7K6FFw/giphy.gif"
+                alt="coding gif"
+                class="rounded-3xl w-full max-w-md">
+
+            <h1 class="text-5xl font-bold mt-6 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                ExperienceHub
+            </h1>
+
+            <p class="text-zinc-400 mt-3 text-center">
+                Share your experiences, thoughts and stories with the world.
+            </p>
+
+        </div>
+
+        <!-- Right Side -->
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 shadow-2xl">
+
+            <h2 class="text-4xl font-bold mb-2">
+                Create Account ⚜️
+            </h2>
+
+            <p class="text-zinc-400 mb-8">
+                Join ExperienceHub today
+            </p>
+
+            <form action="/register" method="post" class="space-y-4">
+
+                <input
+                    class="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 focus:border-blue-500 outline-none"
+                    type="text"
+                    placeholder="Username"
+                    name="username">
+
+                <input
+                    class="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 focus:border-blue-500 outline-none"
+                    type="text"
+                    placeholder="Full Name"
+                    name="name">
+
+                <input
+                    class="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 focus:border-blue-500 outline-none"
+                    type="number"
+                    placeholder="Age"
+                    name="age">
+
+                <input
+                    class="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 focus:border-blue-500 outline-none"
+                    type="email"
+                    placeholder="Email Address"
+                    name="email">
+
+                <input
+                    class="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 focus:border-blue-500 outline-none"
+                    type="password"
+                    placeholder="Password"
+                    name="password">
+
+                <button
+                    type="submit"
+                    class="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-3 rounded-xl font-semibold hover:scale-[1.02] transition">
+
+                    Create Account
+
+                </button>
+
+            </form>
+
+            <p class="text-center text-zinc-400 mt-6">
+                Already have an account?
+                <a href="/login" class="text-blue-400 hover:text-blue-300">
+                    Login
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>

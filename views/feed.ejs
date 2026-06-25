@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExperienceHub Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-white">
+
+    <div class="max-w-6xl mx-auto p-8">
+
+        <h1 class="text-4xl font-bold mb-8 text-center">
+             Community Feed ✨
+        </h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <% posts.forEach(function(post){ %>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-lg hover:border-zinc-700 transition">
+
+                    <h3 class="text-blue-400 text-lg font-semibold mb-3">
+                        @<%= post.user.username %>
+                    </h3>
+
+                    <p class="text-zinc-200 text-lg leading-relaxed">
+                        <%= post.content %>
+                    </p>
+                    <!-- Like Button -->
+<div class="mt-4">
+
+    <a
+        href="/like/<%= post._id %>"
+        class="text-red-400 hover:text-red-300 font-medium">
+
+        ❤️ <%= post.likes.length %> Likes
+
+    </a>
+
+</div>
+
+<!-- Comment Form -->
+<form action="/comment/<%= post._id %>" method="post" class="mt-4">
+
+    <input
+        type="text"
+        name="comment"
+        placeholder="Write a comment..."
+        class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2 text-white">
+
+    <button
+        type="submit"
+        class="mt-2 bg-green-600 hover:bg-green-700 px-3 py-2 rounded-lg">
+
+        Comment
+
+    </button>
+
+</form>
+
+<!-- Comments -->
+<% if(post.comments && post.comments.length > 0){ %>
+
+    <div class="mt-4 border-t border-zinc-800 pt-3">
+
+        <% post.comments.forEach(function(comment){ %>
+
+            <div class="bg-zinc-950 rounded-lg p-2 mb-2">
+
+                <p class="text-sm text-zinc-300">
+                    💬 <%= comment.text %>
+                </p>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+
+<% } %>
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
