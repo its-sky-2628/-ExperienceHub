@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://127.0.0.1:27017/miniproject");
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => console.log("MongoDB Atlas Connected"))
+.catch(err => console.log(err));
 
 const UserSchema = mongoose.Schema({
     username: String,
