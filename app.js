@@ -208,6 +208,6 @@ app.get("/feed", isLoggedIn, async function(req,res){
 
     res.render("feed",{posts});
 });
-app.listen(3000, function() {
-    console.log("Server running on port 3000");
+app.listen(process.env.PORT || 3000, function() {
+    console.log("Server running");
 });
