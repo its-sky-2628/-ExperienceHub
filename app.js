@@ -27,22 +27,23 @@ app.get("/profile",isLoggedIn, async function(req, res) {
 });
 app.get("/like/:id", isLoggedIn, async function(req, res) {
 
-    let post = await postModel.findOne({ _id: req.params.id });
+    let post = await postModel.findById(req.params.id);
 
-    if (post.likes.indexOf(req.user.userid) === -1) {
-        post.likes.push(req.user.userid);
-    } else {
-        post.likes.splice(
-            post.likes.indexOf(req.user.userid),
-            1
-        );
+    if (!post) {
+        return res.redirect("/profile");
     }
 
-    await post.save();
+    const liked = post.likes.includes(req.user.userid);
+
+    await postModel.findByIdAndUpdate(
+        req.params.id,
+        liked
+        ? { $pull: { likes: req.user.userid } }
+        : { $push: { likes: req.user.userid } }
+    );
 
     res.redirect("/profile");
 });
-
 app.get("/edit/:id", isLoggedIn, async function(req, res) {
 
     let post = await postModel.findOne({ _id: req.params.id });
