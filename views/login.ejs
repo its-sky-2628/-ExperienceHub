@@ -21,16 +21,15 @@
 
     <div class="absolute inset-0 bg-gradient-to-b from-cyan-950/20 via-transparent to-zinc-950/50 pointer-events-none"></div>
 
-    <div class="w-full max-w-5xl flex flex-col md:flex-row items-center justify-center gap-12 lg:gap-20 relative z-10 py-8">
+    <div class="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 lg:gap-20 px-4 relative z-10 py-6 md:py-8">
         
-        <div class="w-full max-w-[320px] md:max-w-md flex justify-center md:justify-end">
-            <img class="w-full h-auto object-contain drop-shadow-[0_10px_30px_rgba(6,182,212,0.35)] filter contrast-110 brightness-105" 
-                 src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500' fill='none'><rect width='400' height='500' rx='24' fill='%230b0f19' stroke='%230891b2' stroke-width='2'/><g opacity='0.15'><line x1='0' y1='100' x2='400' y2='100' stroke='%2306b6d4'/><line x1='0' y1='200' x2='400' y2='200' stroke='%2306b6d4'/><line x1='0' y1='300' x2='400' y2='300' stroke='%2306b6d4'/><line x1='0' y1='400' x2='400' y2='400' stroke='%2306b6d4'/><line x1='100' y1='0' x2='100' y2='500' stroke='%2306b6d4'/><line x1='200' y1='0' x2='200' y2='500' stroke='%2306b6d4'/><line x1='300' y1='0' x2='300' y2='500' stroke='%2306b6d4'/></g><path d='M110 400 Q100 330 140 290 Q150 250 140 200 Q130 140 180 110 Q230 110 260 140 Q280 180 265 240 Q250 280 270 310 Q310 350 290 400 Z' fill='%231e293b' stroke='%2306b6d4' stroke-width='4'/><path d='M145 180 Q120 100 160 125' fill='%23334155' stroke='%2306b6d4' stroke-width='3'/><path d='M255 180 Q280 100 240 125' fill='%23334155' stroke='%2306b6d4' stroke-width='3'/><circle cx='180' cy='185' r='18' fill='%23020617' stroke='%2322d3ee' stroke-width='2'/><circle cx='182' cy='185' r='5' fill='%23a5f3fc'/><circle cx='230' cy='185' r='18' fill='%23020617' stroke='%2322d3ee' stroke-width='2'/><circle cx='228' cy='185' r='5' fill='%23a5f3fc'/><path d='M195 205 L215 205 L205 215 Z' fill='%2306b6d4'/><path d='M180 235 Q205 255 230 235' stroke='%2322d3ee' stroke-width='4' stroke-linecap='round' fill='none'/><path d='M140 210 L100 205 M140 215 L95 215 M140 220 L100 225' stroke='%2306b6d4' stroke-width='2'/><path d='M270 210 L310 205 M270 215 L315 215 M270 220 L310 225' stroke='%2306b6d4' stroke-width='2'/><path d='M135 270 Q200 290 270 270 L260 400 L145 400 Z' fill='%230f172a' stroke='%2306b6d4' stroke-width='3'/><circle cx='203' cy='320' r='12' fill='%231e293b' stroke='%2322d3ee' stroke-width='2'/><path d='M195 350 L211 350 M192 370 L214 370' stroke='%2306b6d4' stroke-width='3'/><text x='50%25' y='460' dominant-baseline='middle' text-anchor='middle' fill='%2322d3ee' font-family='monospace' font-size='15' font-weight='bold' letter-spacing='4'>[ TOM_NODE_ONLINE ]</text></svg>" 
-                 alt="Cool Tom Cat"
-                 style="max-height: 500px; border-radius: 24px;">
+        <div class="w-full max-w-sm sm:max-w-md lg:max-w-lg flex justify-center md:justify-end order-2 md:order-1">
+            <img class="w-full h-auto max-h-[350px] sm:max-h-[450px] md:max-h-[600px] object-contain rounded-2xl drop-shadow-[0_10px_30px_rgba(6,182,212,0.35)]" 
+                 src="/images/cute-tom-and-jerry-penguin-suits-7l2rem2p0l5797pf.jpg" 
+                 alt="Cool Tom Cat">
         </div>
 
-        <div class="w-full max-w-md bg-slate-950/70 backdrop-blur-xl p-8 rounded-2xl border border-cyan-500/40 shadow-[0_0_40px_rgba(6,182,212,0.15)] neon-border transition-all duration-500">
+        <div class="w-full max-w-md bg-slate-950/70 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-cyan-500/40 shadow-[0_0_40px_rgba(6,182,212,0.15)] neon-border transition-all duration-500 order-1 md:order-2">
 
             <div class="flex flex-col items-center mb-6">
                 <div class="w-full h-12 flex items-center justify-center mb-4 opacity-80">
@@ -43,7 +42,7 @@
                 <h3 class="text-2xl font-bold tracking-widest text-cyan-400 uppercase text-center">
                     Login Your Account
                 </h3>
-                <p class="text-slate-400 text-xs mt-1 tracking-wide">SECURE BIOMETRIC & CREDENTIAL GATEWAY</p>
+                <p class="text-slate-400 text-xs mt-1 tracking-wide text-center">SECURE BIOMETRIC & CREDENTIAL GATEWAY</p>
             </div>
 
             <form action="/login" method="post" class="flex flex-col gap-5">
@@ -51,7 +50,7 @@
                 <div class="flex flex-col gap-1">
                     <label class="text-[10px] font-bold text-cyan-500 uppercase tracking-widest pl-1">User Identity</label>
                     <input
-                        class="px-4 py-3 text-sm text-white outline-none rounded-xl bg-slate-900/80 border border-cyan-800/60 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300 placeholder-slate-600 font-mono"
+                        class="px-4 py-3 text-sm text-white outline-none rounded-xl bg-slate-900/80 border border-cyan-800/60 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300 placeholder-slate-600 font-mono w-full"
                         type="email"
                         placeholder="username@domain.com"
                         name="Email"
@@ -61,7 +60,7 @@
                 <div class="flex flex-col gap-1">
                     <label class="text-[10px] font-bold text-cyan-500 uppercase tracking-widest pl-1">Access Passkey</label>
                     <input
-                        class="px-4 py-3 text-sm text-white outline-none rounded-xl bg-slate-900/80 border border-cyan-800/60 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300 placeholder-slate-600 font-mono"
+                        class="px-4 py-3 text-sm text-white outline-none rounded-xl bg-slate-900/80 border border-cyan-800/60 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300 placeholder-slate-600 font-mono w-full"
                         type="password"
                         placeholder="••••••••"
                         name="password"
@@ -74,7 +73,7 @@
 
                 <button
                     type="submit"
-                    class="mt-2 px-4 py-3 text-base font-bold text-white uppercase tracking-wider rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-cyan-500/20 cursor-pointer text-center relative overflow-hidden group border border-cyan-400/30">
+                    class="mt-2 px-4 py-3 text-base font-bold text-white uppercase tracking-wider rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-cyan-500/20 cursor-pointer text-center relative overflow-hidden group border border-cyan-400/30 w-full">
                     <span class="relative z-10">Sign In</span>
                     <div class="absolute inset-0 w-full h-1/2 bg-white/10 transform -translate-y-full group-hover:animate-scan"></div>
                 </button>
