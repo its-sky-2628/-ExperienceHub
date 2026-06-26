@@ -24,6 +24,31 @@
                         @<%= post.user.username %>
                     </h3>
 
+<% if(post.user._id.toString() !== currentUser._id.toString()) { %>
+
+    <% if(currentUser.following.map(id => id.toString()).includes(post.user._id.toString())) { %>
+
+        <a
+            href="/follow/<%= post.user._id %>"
+            class="inline-block bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-semibold mb-3">
+
+            Unfollow
+
+        </a>
+
+    <% } else { %>
+
+        <a
+            href="/follow/<%= post.user._id %>"
+            class="inline-block bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold mb-3">
+
+            Follow
+
+        </a>
+
+    <% } %>
+
+<% } %>
                     <p class="text-zinc-200 text-lg leading-relaxed">
                         <%= post.content %>
                     </p>

@@ -23,6 +23,8 @@ app.get("/test", function(req, res) {
 app.get("/profile",isLoggedIn, async function(req, res) {
     let user = await userModel.findOne({email:req.user.email});
     await user.populate("posts");
+    await user.populate("followers");
+    await user.populate("following");
     res.render("profile",{user});
 });
 app.get("/like/:id", isLoggedIn, async function(req, res) {
@@ -204,10 +206,56 @@ function isLoggedIn(req, res, next) {
 }
 app.get("/feed", isLoggedIn, async function(req,res){
 
-    let posts = await postModel.find()
-        .populate("user");
+    let posts = await postModel.find().populate("user");
 
-    res.render("feed",{posts});
+    let currentUser = await userModel.findById(req.user.userid);
+
+    res.render("feed",{
+        posts,
+        currentUser
+    });
+
+});
+app.get("/users", isLoggedIn, async function(req,res){
+
+    let users = await userModel.find({
+        _id: {$ne:req.user.userid}
+    });
+
+    res.render("users",{users});
+});
+app.get("/follow/:id", isLoggedIn, async function(req,res){
+
+    let currentUser = await userModel.findById(req.user.userid);
+
+    let targetUser = await userModel.findById(req.params.id);
+
+    if(!targetUser){
+        return res.send("User not found");
+    }
+
+    if(currentUser.following.includes(targetUser._id)){
+
+        currentUser.following.pull(targetUser._id);
+
+        targetUser.followers.pull(currentUser._id);
+
+    }
+
+    else{
+
+        currentUser.following.push(targetUser._id);
+
+        targetUser.followers.push(currentUser._id);
+
+    }
+
+    await currentUser.save();
+
+    await targetUser.save();
+
+    res.redirect("/feed");
+
 });
 app.listen(process.env.PORT || 3000, function() {
     console.log("Server running");
