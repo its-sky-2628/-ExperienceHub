@@ -3,43 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Modern Login Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Smooth subtle background animation */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-bg {
+            background: linear-gradient(-45deg, #18181b, #27272a, #111827, #0f172a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+    </style>
 </head>
-<body>
+<body class="animated-bg min-h-screen flex items-center justify-center font-sans px-4">
 
-<div class="w-full min-h-screen bg-zinc-900 text-white flex items-center justify-center">
+<div class="w-full max-w-md bg-zinc-900/80 backdrop-blur-md p-8 rounded-2xl border border-zinc-800 shadow-2xl transition-all duration-500 hover:border-yellow-600/30">
 
-    <div class="w-full max-w-md">
-
-        <h3 class="text-4xl mb-8 text-center">
+    <div class="flex flex-col items-center mb-8">
+        <div class="w-16 h-16 bg-yellow-600/10 rounded-full flex items-center justify-center mb-4 relative overflow-hidden group border border-yellow-600/30">
+            <span class="text-2xl animate-bounce">🔑</span>
+            <div class="absolute inset-0 bg-yellow-500/20 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full"></div>
+        </div>
+        
+        <h3 class="text-3xl font-bold tracking-tight text-white text-center">
             Login Your Account
         </h3>
-
-        <form action="/login" method="post" class="flex flex-col gap-4">
-
-            <input
-                class="px-4 py-3 text-lg outline-none rounded-md bg-transparent border-2 border-yellow-800"
-                type="email"
-                placeholder=" Your Email"
-                name="Email">
-
-            <input
-                class="px-4 py-3 text-lg outline-none rounded-md bg-transparent border-2 border-yellow-800"
-                type="password"
-                placeholder="Password"
-                name="password">
-
-            <input
-                class="px-4 py-3 text-lg outline-none rounded-md bg-blue-500 border-2 border-blue-800 cursor-pointer"
-                type="submit"
-                value="Login">
-
-        </form>
-
+        <p class="text-zinc-400 text-sm mt-1">Welcome back! Please enter your details.</p>
     </div>
 
+    <form action="/login" method="post" class="flex flex-col gap-5">
+
+        <div class="flex flex-col gap-1">
+            <label class="text-xs font-semibold text-zinc-400 uppercase tracking-wider pl-1">Email Address</label>
+            <input
+                class="px-4 py-3 text-base text-white outline-none rounded-xl bg-zinc-800/50 border-2 border-zinc-700 focus:border-yellow-600 focus:ring-4 focus:ring-yellow-600/20 transition-all duration-300 placeholder-zinc-500"
+                type="email"
+                placeholder="name@example.com"
+                name="Email"
+                required>
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label class="text-xs font-semibold text-zinc-400 uppercase tracking-wider pl-1">Password</label>
+            <input
+                class="px-4 py-3 text-base text-white outline-none rounded-xl bg-zinc-800/50 border-2 border-zinc-700 focus:border-yellow-600 focus:ring-4 focus:ring-yellow-600/20 transition-all duration-300 placeholder-zinc-500"
+                type="password"
+                placeholder="••••••••"
+                name="password"
+                required>
+        </div>
+
+        <div class="flex justify-end -mt-2">
+            <a href="#" class="text-xs text-yellow-500 hover:text-yellow-400 transition-colors">Forgot password?</a>
+        </div>
+
+        <button
+            type="submit"
+            class="mt-2 px-4 py-3.5 text-base font-semibold text-zinc-950 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-yellow-600/20 cursor-pointer text-center relative overflow-hidden group">
+            <span class="relative z-10">Sign In</span>
+            <div class="absolute inset-0 w-1/2 h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:animate-shine"></div>
+        </button>
+
+    </form>
+
+    <p class="text-center text-sm text-zinc-500 mt-6">
+        Don't have an account? <a href="#" class="text-yellow-500 hover:underline">Sign up</a>
+    </p>
+
 </div>
+
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                animation: {
+                    shine: 'shine 0.8s ease-out',
+                },
+                keyframes: {
+                    shine: {
+                        '100%': { transform: 'translateX(300%)' },
+                    }
+                }
+            }
+        }
+    }
+</script>
 
 </body>
 </html>
