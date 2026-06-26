@@ -162,7 +162,7 @@ app.get("/allusers", async function(req,res){
 });
 app.get("/deleteeverything", isLoggedIn, async function(req,res){
 
-    if(req.user.email !== "shreyanshyadav9572@gmail.com"){
+    if(req.user.email !== "shreyanshyadav95572@gmail.com"){
         return res.send("Access Denied");
     }
 
