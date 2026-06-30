@@ -232,6 +232,9 @@ app.get("/users", isLoggedIn, async function(req,res){
 
     res.render("users",{users});
 });
+app.get("/forgot-password", function(req,res){
+    res.render("forgot-password");
+});
 app.get("/follow/:id", isLoggedIn, async function(req,res){
 
     let currentUser = await userModel.findById(req.user.userid);
