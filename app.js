@@ -99,7 +99,14 @@ app.get("/login", function(req, res) {
 app.post("/register", async function(req, res) {
     let {email,password,age,username,name}=req.body;
     let find=await userModel.findOne({email})
-    if(find) return res.status(500).send("User is already registered");
+    if(find){
+    return res.send(`
+        <script>
+            alert("User already exists!");
+            window.location.href="/";
+        </script>
+    `);
+}
     bcrypt.genSalt(10,(err,salt)=>{
         bcrypt.hash(password,salt,async (err,hash)=>{
             let user=await userModel.create({
