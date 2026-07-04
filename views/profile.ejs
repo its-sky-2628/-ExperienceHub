@@ -78,6 +78,20 @@
                 </h3>
 
                 <form action="/post" method="post">
+                    <select
+    name="category"
+    class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 mb-3 text-white">
+
+    <option>Life Experience 🌱</option>
+    <option>Shayari & Poetry ❤️</option>
+    <option>Love Stories 💕</option>
+    <option>Secrets & Confessions 🤫</option>
+    <option>College Life 🎓</option>
+    <option>Coding & Tech 💻</option>
+    <option>Gaming 🎮</option>
+    <option>Travel & Adventure ✈️</option>
+    <option>Fitness & Health 💪</option>
+</select>
 
                     <textarea
                         name="content"
@@ -115,6 +129,9 @@
                     <h4 class="text-blue-400 font-semibold">
                         @<%= user.username %>
                     </h4>
+                    <p class="text-yellow-400 text-sm mb-2">
+                        <%= post.category %>
+                    </p>
 
                     <span class="text-zinc-400 text-sm">
                         ❤️ <%= post.likes.length %>

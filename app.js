@@ -83,15 +83,25 @@ app.post("/update/:id", isLoggedIn, async function(req, res) {
 });
 
 app.post("/post", isLoggedIn, async function(req, res){
-    let{content}=req.body;
-    let user=await userModel.findOne({email:req.user.email})
-    let post=await postModel.create({
-        user:user._id,
-        content:content
-    })
+
+    let { content, category } = req.body;
+
+    let user = await userModel.findOne({
+        email: req.user.email
+    });
+
+    let post = await postModel.create({
+        user: user._id,
+        content: content,
+        category: category
+    });
+
     user.posts.push(post._id);
+
     await user.save();
-    res.redirect('/profile')
+
+    res.redirect("/profile");
+
 });
 app.get("/login", function(req, res) {
     res.render("login");
@@ -214,7 +224,15 @@ function isLoggedIn(req, res, next) {
 }
 app.get("/feed", isLoggedIn, async function(req,res){
 
-    let posts = await postModel.find().populate("user");
+    let filter = {};
+
+    if(req.query.category){
+        filter.category = req.query.category;
+    }
+
+    let posts = await postModel.find(filter)
+        .populate("user")
+        .sort({date:-1});
 
     let currentUser = await userModel.findById(req.user.userid);
 

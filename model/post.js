@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-
 const postSchema = mongoose.Schema({
+
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
@@ -14,19 +14,27 @@ const postSchema = mongoose.Schema({
 
     content: String,
 
+    category: {
+        type: String,
+        default: "Life Experience 🌱"
+    },
+
     likes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     }],
-    comments:[
-    {
-        user:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref:"user"
-        },
-        text:String
-    }
-]
+
+    comments: [
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "user"
+            },
+
+            text: String
+        }
+    ]
+
 });
 
 module.exports = mongoose.model("post", postSchema);

@@ -6,31 +6,75 @@
     <title>ExperienceHub Feed</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-zinc-950 text-white min-h-screen">
 
     <div class="max-w-6xl mx-auto px-4 py-8">
 
-        <h1 class="text-4xl font-bold text-center mb-10 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+        <!-- Heading -->
+        <h1 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
             Community Feed ✨
         </h1>
 
+        <!-- Category Filters -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10">
+
+            <a href="/feed"
+               class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl font-medium transition">
+                All
+            </a>
+
+            <a href="/feed?category=Life Experience 🌱"
+               class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl transition">
+                🌱 Life
+            </a>
+
+            <a href="/feed?category=Shayari & Poetry ❤️"
+               class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl transition">
+                ❤️ Shayari
+            </a>
+
+            <a href="/feed?category=Coding & Tech 💻"
+               class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl transition">
+                💻 Tech
+            </a>
+
+            <a href="/feed?category=Gaming 🎮"
+               class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl transition">
+                🎮 Gaming
+            </a>
+
+            <a href="/feed?category=Travel & Adventure ✈️"
+               class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl transition">
+                ✈️ Travel
+            </a>
+
+        </div>
+
+        <!-- Feed Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <% posts.forEach(function(post){ %>
 
-            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-lg hover:border-blue-500/50 transition-all duration-300">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-lg hover:border-blue-500/50 hover:shadow-blue-500/10 transition-all duration-300">
 
                 <!-- User Header -->
                 <div class="flex justify-between items-start mb-4">
 
                     <div>
-                        <h3 class="text-blue-400 text-xl font-bold">
-                            @<%= post.user.username %>
-                        </h3>
 
-                        <p class="text-zinc-500 text-sm">
-                            Shared an experience
-                        </p>
+                    <h3 class="text-blue-400 text-xl font-bold">
+                        @<%= post.user.username %>
+                    </h3>
+
+                    <p class="text-yellow-400 text-sm">
+                        <%= post.category || "Life Experience 🌱" %>
+                    </p>
+
+                    <p class="text-zinc-500 text-xs">
+                        Shared an experience
+                    </p>
+
                     </div>
 
                     <% if(post.user._id.toString() !== currentUser._id.toString()) { %>
@@ -65,7 +109,7 @@
                 <div class="border-l-4 border-blue-500 pl-4 mb-5">
 
                     <p class="text-zinc-200 text-[17px] leading-8 break-words whitespace-pre-line">
-                     <%= post.content %>
+                        <%= post.content %>
                     </p>
 
                 </div>
