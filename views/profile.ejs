@@ -78,20 +78,26 @@
                 </h3>
 
                 <form action="/post" method="post">
+                    <label class="block text-zinc-300 font-medium mb-2">
+                        📂 Choose a category for your post
+                    </label>
                     <select
-    name="category"
-    class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 mb-3 text-white">
+                        name="category"
+                        class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 mb-3 text-white">
 
-    <option>Life Experience 🌱</option>
-    <option>Shayari & Poetry ❤️</option>
-    <option>Love Stories 💕</option>
-    <option>Secrets & Confessions 🤫</option>
-    <option>College Life 🎓</option>
-    <option>Coding & Tech 💻</option>
-    <option>Gaming 🎮</option>
-    <option>Travel & Adventure ✈️</option>
-    <option>Fitness & Health 💪</option>
-</select>
+                        <option value="">Select Category ✨</option>
+                        <option>🌱 Life Experience</option>
+                        <option>❤️ Shayari & Poetry</option>
+                        <option>💕 Love Stories</option>
+                        <option>🤫 Secrets & Confessions</option>
+                        <option>🎓 College Life</option>
+                        <option>💻 Coding & Tech</option>
+                        <option>🎮 Gaming</option>
+                        <option>✈️ Travel & Adventure</option>
+                        <option>💪 Fitness & Health</option>
+
+                    </select>
+     
 
                     <textarea
                         name="content"
