@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require("multer");
 const app = express();
 const bcrypt=require('bcrypt');
 const jwt=require("jsonwebtoken");
@@ -11,6 +12,18 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieparser());
 app.use(express.static("public"));
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, "./uploads");
+    },
+    filename: function(req, file, cb){
+        cb(null, Date.now() + "-" + file.originalname);
+    }
+});
+
+const upload = multer({ storage });
+
+app.use("/uploads", express.static("uploads"));
 
 app.get("/", function(req, res) {
     res.render("index");
@@ -263,15 +276,17 @@ app.get("/follow/:id", isLoggedIn, async function(req,res){
         return res.send("User not found");
     }
 
-    if(currentUser.following.includes(targetUser._id)){
+    const isFollowing = currentUser.following.some(
+        id => id.toString() === targetUser._id.toString()
+    );
+
+    if(isFollowing){
 
         currentUser.following.pull(targetUser._id);
 
         targetUser.followers.pull(currentUser._id);
 
-    }
-
-    else{
+    } else {
 
         currentUser.following.push(targetUser._id);
 
@@ -286,6 +301,22 @@ app.get("/follow/:id", isLoggedIn, async function(req,res){
     res.redirect("/feed");
 
 });
+app.post(
+    "/upload-profile",
+    isLoggedIn,
+    upload.single("profilePic"),
+    async function(req,res){
+
+        await userModel.findByIdAndUpdate(
+            req.user.userid,
+            {
+                profilePic:req.file.filename
+            }
+        );
+
+        res.redirect("/profile");
+    }
+);
 app.listen(process.env.PORT || 3000, function() {
     console.log("Server running");
 });
