@@ -13,175 +13,91 @@
 
     <div class="max-w-6xl mx-auto px-4 py-8">
 
-        <!-- Heading -->
         <div class="text-center mb-10">
-
-        <h1 class="text-5xl font-extrabold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent">
-        ExperienceHub
-        </h1>
-
-    <p class="text-zinc-400 mt-3">
-        Discover stories, experiences and ideas from people around the world.
-    </p>
-
-    </div>
-
-        <!-- Category Filters -->
-        <div class="flex flex-wrap justify-center gap-3 mb-10">
-
-            <a href="/feed"
-               class="bg-white/5 backdrop-blur-lg border border-white/10 hover:border-blue-500 hover:scale-105 px-4 py-2 rounded-full transition">
-                All
-            </a>
-
-            <a href="/feed?category=Life Experience 🌱"
-              class="bg-white/5 backdrop-blur-lg border border-white/10 hover:border-blue-500 hover:scale-105 px-4 py-2 rounded-full transition">
-                🌱 Life
-            </a>
-
-            <a href="/feed?category=Shayari & Poetry ❤️"
-               class="bg-white/5 backdrop-blur-lg border border-white/10 hover:border-blue-500 hover:scale-105 px-4 py-2 rounded-full transition">
-                ❤️ Shayari
-            </a>
-
-            <a href="/feed?category=Coding & Tech 💻"
-               class="bg-white/5 backdrop-blur-lg border border-white/10 hover:border-blue-500 hover:scale-105 px-4 py-2 rounded-full transition">
-                💻 Tech
-            </a>
-
-            <a href="/feed?category=Gaming 🎮"
-                class="bg-white/5 backdrop-blur-lg border border-white/10 hover:border-blue-500 hover:scale-105 px-4 py-2 rounded-full transition">
-                🎮 Gaming
-            </a>
-
-            <a href="/feed?category=Travel & Adventure ✈️"
-                class="bg-white/5 backdrop-blur-lg border border-white/10 hover:border-blue-500 hover:scale-105 px-4 py-2 rounded-full transition">
-                ✈️ Travel
-            </a>
-
+            <h1 class="text-5xl font-extrabold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent">
+                ExperienceHub
+            </h1>
+            <p class="text-zinc-400 mt-3">
+                Discover stories, experiences and ideas from people around the world.
+            </p>
         </div>
 
-        <!-- Feed Grid -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10">
+            <a href="/feed" class="bg-white/5 backdrop-blur-lg border border-white/10 hover:border-blue-500 hover:scale-105 px-4 py-2 rounded-full transition">All</a>
+            <a href="/feed?category=Life Experience 🌱" class="bg-white/5 backdrop-blur-lg border border-white/10 hover:border-blue-500 hover:scale-105 px-4 py-2 rounded-full transition">🌱 Life</a>
+            <a href="/feed?category=Shayari & Poetry ❤️" class="bg-white/5 backdrop-blur-lg border border-white/10 hover:border-blue-500 hover:scale-105 px-4 py-2 rounded-full transition">❤️ Shayari</a>
+            <a href="/feed?category=Coding & Tech 💻" class="bg-white/5 backdrop-blur-lg border border-white/10 hover:border-blue-500 hover:scale-105 px-4 py-2 rounded-full transition">💻 Tech</a>
+            <a href="/feed?category=Gaming 🎮" class="bg-white/5 backdrop-blur-lg border border-white/10 hover:border-blue-500 hover:scale-105 px-4 py-2 rounded-full transition">🎮 Gaming</a>
+            <a href="/feed?category=Travel & Adventure ✈️" class="bg-white/5 backdrop-blur-lg border border-white/10 hover:border-blue-500 hover:scale-105 px-4 py-2 rounded-full transition">✈️ Travel</a>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <% posts.forEach(function(post){ %>
 
-            <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-lg hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.25)] transition-all duration-300">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-lg hover:border-zinc-700 transition">
 
-                <!-- User Header -->
                 <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold mb-2">
+                            <%= post.user.username.charAt(0).toUpperCase() %>
+                        </div>
 
-                <div>
+                        <h3 class="text-blue-400 text-xl font-bold">
+                            @<%= post.user.username %>
+                        </h3>
 
-                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold mb-2">
-                <%= post.user.username.charAt(0).toUpperCase() %>
-    </div>
+                        <span class="inline-block bg-yellow-500/10 text-yellow-400 text-xs px-3 py-1 rounded-full border border-yellow-500/20 mt-2">
+                            <%= post.category || "Life Experience 🌱" %>
+                        </span>
 
-    <h3 class="text-blue-400 text-xl font-bold">
-        @<%= post.user.username %>
-    </h3>
-
-    <span class="inline-block bg-yellow-500/10 text-yellow-400 text-xs px-3 py-1 rounded-full border border-yellow-500/20 mt-2">
-        <%= post.category || "Life Experience 🌱" %>
-    </span>
-
-    <p class="text-zinc-500 text-xs mt-2">
-        Shared an experience
-    </p>
-
-</div
-
-                    <% if(post.user._id.toString() !== currentUser._id.toString()) { %>
-
+                        <p class="text-zinc-500 text-xs mt-2">
+                            Shared an experience
+                        </p>
+                    </div> <% if(post.user._id.toString() !== currentUser._id.toString()) { %>
                         <% if(currentUser.following.map(id => id.toString()).includes(post.user._id.toString())) { %>
-
-                            <a
-                                href="/follow/<%= post.user._id %>"
-                                class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-xl text-sm font-semibold transition">
-
+                            <a href="/follow/<%= post.user._id %>" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-xl text-sm font-semibold transition">
                                 Unfollow
-
                             </a>
-
                         <% } else { %>
-
-                            <a
-                                href="/follow/<%= post.user._id %>"
-                                class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-xl text-sm font-semibold transition">
-
+                            <a href="/follow/<%= post.user._id %>" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-xl text-sm font-semibold transition">
                                 Follow
-
                             </a>
-
                         <% } %>
-
                     <% } %>
-
                 </div>
 
-                <!-- Post Content -->
                 <div class="border-l-4 border-blue-500 pl-4 mb-5">
-
-                    <p class="text-zinc-200 text-[17px] leading-8 break-words whitespace-pre-line">
+                    <p class="text-zinc-200 text-lg leading-relaxed whitespace-pre-line">
                         <%= post.content %>
                     </p>
-
                 </div>
 
-                <!-- Like Section -->
                 <div class="mb-5">
-
-                <a
-                    href="/like/<%= post._id %>"
-                    class="inline-flex items-center gap-2 text-red-400 hover:scale-105 transition">
-                     ❤️
-                    <span><%= post.likes.length %></span>
-                </a>
-
+                    <a href="/like/<%= post._id %>" class="text-red-400 hover:text-red-300 font-medium">
+                        ❤️ <%= post.likes.length %> Likes
+                    </a>
                 </div>
 
-                <!-- Comment Form -->
                 <form action="/comment/<%= post._id %>" method="post">
-
-                    <input
-                        type="text"
-                        name="comment"
-                        placeholder="Write a comment..."
+                    <input type="text" name="comment" placeholder="Write a comment..." required
                         class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-white focus:outline-none focus:border-blue-500">
-
-                    <button
-                        type="submit"
-                        class="mt-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 px-4 py-2 rounded-xl font-medium transition">
-
+                    <button type="submit" class="mt-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 px-4 py-2 rounded-xl font-medium transition">
                         Comment
-
                     </button>
-
                 </form>
 
-                <!-- Comments -->
                 <% if(post.comments && post.comments.length > 0){ %>
-
                 <div class="mt-5 border-t border-zinc-800 pt-4">
-
-                    <h4 class="text-zinc-500 text-sm mb-3">
-                        Comments
-                    </h4>
-
+                    <h4 class="text-zinc-500 text-sm mb-3">Comments</h4>
                     <% post.comments.forEach(function(comment){ %>
-
                     <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3 mb-3">
-
                         <p class="text-zinc-300 text-sm leading-6">
                             💬 <%= comment.text %>
                         </p>
-
                     </div>
-
                     <% }) %>
-
                 </div>
-
                 <% } %>
 
             </div>
@@ -189,8 +105,6 @@
             <% }) %>
 
         </div>
-
     </div>
-
 </body>
-</html>
+</html> 
