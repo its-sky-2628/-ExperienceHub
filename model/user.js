@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const UserSchema = mongoose.Schema({
     username: String,
     name: String,
@@ -5,9 +7,9 @@ const UserSchema = mongoose.Schema({
     email: String,
     password: String,
 
-    profilePic:{
-        type:String,
-        default:""
+    profilePic: {
+        type: String,
+        default: ""
     },
 
     posts: [{
