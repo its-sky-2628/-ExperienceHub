@@ -311,10 +311,16 @@ app.post(
     upload.single("profilePic"),
     async function(req,res){
 
+        console.log("FILE:", req.file);
+
+        if(!req.file){
+            return res.send("No file selected");
+        }
+
         await userModel.findByIdAndUpdate(
             req.user.userid,
             {
-                profilePic:req.file.filename
+                profilePic: req.file.filename
             }
         );
 
