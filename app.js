@@ -1,11 +1,17 @@
 const express = require("express");
 const multer = require("multer");
+const mongoose = require("mongoose");
+
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => console.log("MongoDB Atlas Connected"))
+.catch(err => console.log(err));
+
+const app = express();
 const app = express();
 const bcrypt=require('bcrypt');
 const jwt=require("jsonwebtoken");
 const userModel = require("./model/user");
 const postModel = require("./model/post");
-const { default: mongoose } = require("mongoose");
 const cookieparser=require('cookie-parser');
 app.set("view engine","ejs");
 app.use(express.json());
