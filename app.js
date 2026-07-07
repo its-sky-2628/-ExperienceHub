@@ -1,5 +1,6 @@
 const express = require("express");
 const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const mongoose = require("mongoose");
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -11,19 +12,27 @@ const jwt=require("jsonwebtoken");
 const userModel = require("./model/user");
 const postModel = require("./model/post");
 const cookieparser=require('cookie-parser');
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+});
 app.set("view engine","ejs");
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieparser());
 app.use(express.static("public"));
-const storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        cb(null, "./uploads");
-    },
-    filename: function(req, file, cb){
-        cb(null, Date.now() + "-" + file.originalname);
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "experiencehub_profiles",
+        allowed_formats: ["jpg", "jpeg", "png", "webp"]
     }
 });
+
+const upload = multer({ storage });
 
 const upload = multer({ storage });
 
@@ -315,20 +324,28 @@ app.post(
     upload.single("profilePic"),
     async function(req,res){
 
-        console.log("FILE:", req.file);
+        try{
 
-        if(!req.file){
-            return res.send("No file selected");
+            if(!req.file){
+                return res.send("No file selected");
+            }
+
+            await userModel.findByIdAndUpdate(
+                req.user.userid,
+                {
+                    profilePic: req.file.path
+                }
+            );
+
+            res.redirect("/profile");
+
+        } catch(err){
+
+            console.log(err);
+            res.send("Profile upload failed");
+
         }
 
-        await userModel.findByIdAndUpdate(
-            req.user.userid,
-            {
-                profilePic: req.file.filename
-            }
-        );
-
-        res.redirect("/profile");
     }
 );
 app.listen(process.env.PORT || 3000, function() {
