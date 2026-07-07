@@ -98,32 +98,31 @@
                         </p>
 
                     </div>
-
                     <% if(post.user._id.toString() !== currentUser._id.toString()) { %>
 
-                        <% if(currentUser.following.map(id => id.toString()).includes(post.user._id.toString())) { %>
+                    <% if(currentUser.following.map(id => id.toString()).includes(post.user._id.toString())) { %>
 
-                            <a
-                                href="/follow/<%= post.user._id %>"
-                                class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl text-sm font-semibold transition">
+            <a
+            href="/follow/<%= post.user._id %>"
+            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition">
 
-                                Unfollow
+            Unfollow
 
-                            </a>
+        </a>
 
-                        <% } else { %>
+    <% } else { %>
 
-                            <a
-                                href="/follow/<%= post.user._id %>"
-                                class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl text-sm font-semibold transition">
+        <a
+            href="/follow/<%= post.user._id %>"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition">
 
-                                Follow
+            Follow
 
-                            </a>
+        </a>
 
-                        <% } %>
+    <% } %>
 
-                    <% } %>
+<% } %>
 
                 </div>
 
