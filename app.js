@@ -251,6 +251,10 @@ app.get("/feed", isLoggedIn, async function(req,res){
         .populate("user")
         .sort({date:-1});
 
+    posts.forEach(post => {
+        console.log(post.user.username, "=>", post.user.profilePic);
+    });
+
     let currentUser = await userModel.findById(req.user.userid);
 
     res.render("feed",{
