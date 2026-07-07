@@ -34,7 +34,7 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
-const upload = multer({ storage });
+
 
 app.use("/uploads", express.static("uploads"));
 
