@@ -318,12 +318,7 @@ app.get("/follow/:id", isLoggedIn, async function(req,res){
     res.redirect("/feed");
 
 });
-app.post(
-    "/upload-profile",
-    isLoggedIn,
-    upload.single("profilePic"),
-    async function(req,res){
-
+app.post("/upload-profile",isLoggedIn,upload.single("profilePic"),async function(req,res){
         try{
 
             if(!req.file){

@@ -13,50 +13,22 @@
 
         <!-- Heading -->
         <div class="text-center mb-10 border-b border-zinc-800 pb-8">
-
             <h1 class="text-5xl font-bold text-white">
                 ExperienceHub
             </h1>
-
             <p class="text-zinc-400 mt-3 text-lg">
                 Discover stories, experiences and ideas from people around the world.
             </p>
-
         </div>
 
         <!-- Category Filters -->
         <div class="flex flex-wrap justify-center gap-3 mb-10">
-
-            <a href="/feed"
-               class="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 px-4 py-2 rounded-full transition">
-                All
-            </a>
-
-            <a href="/feed?category=🌱 Life Experience"
-               class="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 px-4 py-2 rounded-full transition">
-                🌱 Life
-            </a>
-
-            <a href="/feed?category=❤️ Shayari & Poetry"
-               class="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 px-4 py-2 rounded-full transition">
-                ❤️ Shayari
-            </a>
-
-            <a href="/feed?category=💻 Coding & Tech"
-               class="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 px-4 py-2 rounded-full transition">
-                💻 Tech
-            </a>
-
-            <a href="/feed?category=🎮 Gaming"
-               class="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 px-4 py-2 rounded-full transition">
-                🎮 Gaming
-            </a>
-
-            <a href="/feed?category=✈️ Travel & Adventure"
-               class="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 px-4 py-2 rounded-full transition">
-                ✈️ Travel
-            </a>
-
+            <a href="/feed" class="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 px-4 py-2 rounded-full transition">All</a>
+            <a href="/feed?category=🌱 Life Experience" class="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 px-4 py-2 rounded-full transition">🌱 Life</a>
+            <a href="/feed?category=❤️ Shayari & Poetry" class="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 px-4 py-2 rounded-full transition">❤️ Shayari</a>
+            <a href="/feed?category=💻 Coding & Tech" class="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 px-4 py-2 rounded-full transition">💻 Tech</a>
+            <a href="/feed?category=🎮 Gaming" class="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 px-4 py-2 rounded-full transition">🎮 Gaming</a>
+            <a href="/feed?category=✈️ Travel & Adventure" class="bg-zinc-900 border border-zinc-800 hover:border-zinc-600 px-4 py-2 rounded-full transition">✈️ Travel</a>
         </div>
 
         <!-- Feed Grid -->
@@ -70,21 +42,17 @@
                 <div class="flex justify-between items-start mb-4">
 
                     <div>
-
-                <% if(post.user.profilePic){ %>
-
-                <img
-                    src="<%= post.user.profilePic %>"
-                    class="w-12 h-12 rounded-full object-cover mb-2 border border-zinc-700">
-
-                <% } else { %>
-
-                <div class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center text-white font-bold mb-2">
-                <%= post.user.username.charAt(0).toUpperCase() %>
-                </div>
-
-                <% } %>
-
+                        <!-- Profile Pic Logic Fix -->
+                        <% if(post.user.profilePic && post.user.profilePic.startsWith('http')){ %>
+                            <img
+                                src="<%= post.user.profilePic %>"
+                                class="w-12 h-12 rounded-full object-cover mb-2 border border-zinc-700">
+                        <% } else { %>
+                            <div class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center text-white font-bold mb-2">
+                                <%= post.user.username.charAt(0).toUpperCase() %>
+                            </div>
+                        <% } %>            
+                        
                         <h3 class="text-blue-400 text-xl font-bold">
                             @<%= post.user.username %>
                         </h3>
@@ -96,101 +64,57 @@
                         <p class="text-zinc-500 text-xs mt-2">
                             Shared an experience
                         </p>
-
                     </div>
+
+                    <!-- Follow/Unfollow Section -->
                     <% if(post.user._id.toString() !== currentUser._id.toString()) { %>
-
-                    <% if(currentUser.following.map(id => id.toString()).includes(post.user._id.toString())) { %>
-
-            <a
-            href="/follow/<%= post.user._id %>"
-            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition">
-
-            Unfollow
-
-        </a>
-
-    <% } else { %>
-
-        <a
-            href="/follow/<%= post.user._id %>"
-            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition">
-
-            Follow
-
-        </a>
-
-    <% } %>
-
-<% } %>
+                        <% if(currentUser.following.map(id => id.toString()).includes(post.user._id.toString())) { %>
+                            <a href="/follow/<%= post.user._id %>" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition">
+                                Unfollow
+                            </a>
+                        <% } else { %>
+                            <a href="/follow/<%= post.user._id %>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition">
+                                Follow
+                            </a>
+                        <% } %>
+                    <% } %>
 
                 </div>
 
                 <!-- Post Content -->
                 <div class="border-l-4 border-blue-500 pl-4 mb-5">
-
                     <p class="text-zinc-200 text-lg leading-relaxed whitespace-pre-line break-words">
                         <%= post.content %>
                     </p>
-
                 </div>
 
                 <!-- Likes -->
                 <div class="mb-5">
-
-                    <a
-                        href="/like/<%= post._id %>"
-                        class="text-red-400 hover:text-red-300 font-medium">
-
+                    <a href="/like/<%= post._id %>" class="text-red-400 hover:text-red-300 font-medium">
                         ❤️ <%= post.likes.length %> Likes
-
                     </a>
-
                 </div>
 
                 <!-- Comment Form -->
                 <form action="/comment/<%= post._id %>" method="post">
-
-                    <input
-                        type="text"
-                        name="comment"
-                        placeholder="Write a comment..."
-                        required
-                        class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-white focus:outline-none focus:border-zinc-600">
-
-                    <button
-                        type="submit"
-                        class="mt-3 bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl font-medium transition">
-
+                    <input type="text" name="comment" placeholder="Write a comment..." required class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-white focus:outline-none focus:border-zinc-600">
+                    <button type="submit" class="mt-3 bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl font-medium transition">
                         Comment
-
                     </button>
-
                 </form>
 
                 <!-- Comments -->
                 <% if(post.comments && post.comments.length > 0){ %>
-
                 <div class="mt-5 border-t border-zinc-800 pt-4">
-
-                    <h4 class="text-zinc-500 text-sm mb-3">
-                        Comments
-                    </h4>
-
+                    <h4 class="text-zinc-500 text-sm mb-3">Comments</h4>
                     <% post.comments.forEach(function(comment){ %>
-
                     <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3 mb-3">
-
                         <p class="text-zinc-300 text-sm leading-6">
                             💬 <%= comment.text %>
                         </p>
-
                     </div>
-
                     <% }) %>
-
                 </div>
-
                 <% } %>
 
             </div>
@@ -198,7 +122,6 @@
             <% }) %>
 
         </div>
-
     </div>
 
 </body>
