@@ -350,6 +350,13 @@ app.get("/search", isLoggedIn, async function(req,res){
 app.get("/forgot-password", function(req,res){
     res.render("forgot-password");
 });
+app.get("/edit-profile", isLoggedIn, async function(req,res){
+
+    let user = await userModel.findById(req.user.userid);
+
+    res.render("editprofile", { user });
+
+});
 app.get("/follow/:id", isLoggedIn, async function(req,res){
 
     let currentUser = await userModel.findById(req.user.userid);
@@ -410,6 +417,22 @@ app.post("/upload-profile",isLoggedIn,upload.single("profilePic"),async function
 
     }
 );
+app.post("/edit-profile", isLoggedIn, async function(req,res){
+
+    let { name, username, bio } = req.body;
+
+    await userModel.findByIdAndUpdate(
+        req.user.userid,
+        {
+            name,
+            username,
+            bio
+        }
+    );
+
+    res.redirect("/profile");
+
+});
 app.listen(process.env.PORT || 3000, function() {
     console.log("Server running");
 });
