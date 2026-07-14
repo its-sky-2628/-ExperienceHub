@@ -85,6 +85,9 @@ app.get("/", async function (req, res) {
     });
 
 });
+app.get("/register", function(req,res){
+    res.render("index");
+});
 app.post("/upload", function(req, res) {
     res.render("index");
 });
