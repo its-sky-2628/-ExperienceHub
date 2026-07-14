@@ -11,6 +11,11 @@ const UserSchema = mongoose.Schema({
         type: String,
         default: ""
     },
+    bio:{
+        type:String,
+        default:"No bio yet."
+    },
+
 
     posts: [{
         type: mongoose.Schema.Types.ObjectId,

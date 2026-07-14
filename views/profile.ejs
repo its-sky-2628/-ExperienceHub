@@ -67,6 +67,21 @@
         @<%= user.username %>
     </p>
 
+    <!-- ✅ 1. Bio Section with Default Text Handling -->
+    <% if(user.bio && user.bio.trim() !== ""){ %>
+
+    <p class="text-zinc-400 text-sm mt-2 text-center">
+        <%= user.bio %>
+    </p>
+
+    <% } else { %>
+
+    <p class="text-zinc-500 text-sm mt-2 italic text-center">
+        Add a bio to tell people about yourself.
+    </p>
+
+    <% } %>
+
     <!-- Upload Profile Photo -->
     <form
         action="/upload-profile"
@@ -88,16 +103,41 @@
 
         </button>
 
+        <!-- ✅ 3. Edit Profile Button with block w-full mt-3 classes applied -->
+        <a
+            href="/edit-profile"
+            class="block w-full mt-3 text-center bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg font-semibold transition">
+
+            ✏️ Edit Profile
+
+        </a>
+
     </form>
 
 </div>
-                    <h2 class="text-xl font-bold mt-4">
-                        <%= user.name %>
-                    </h2>
 
-                    <p class="text-zinc-400">
-                        @<%= user.username %>
-                    </p>
+                </div>
+
+                <!-- ✅ 2. Followers and Following added above Total Posts -->
+                <div class="flex justify-around w-full mt-6">
+
+                    <div class="text-center">
+                        <h3 class="text-xl font-bold text-blue-400">
+                            <%= user.followers.length %>
+                        </h3>
+                        <p class="text-zinc-500 text-sm">
+                            Followers
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <h3 class="text-xl font-bold text-green-400">
+                            <%= user.following.length %>
+                        </h3>
+                        <p class="text-zinc-500 text-sm">
+                            Following
+                        </p>
+                    </div>
 
                 </div>
 
@@ -272,4 +312,4 @@
     </div>
 
 </body>
-</html> 
+</html>

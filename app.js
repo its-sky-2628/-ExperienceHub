@@ -54,6 +54,28 @@ app.get("/profile",isLoggedIn, async function(req, res) {
     await user.populate("following");
     res.render("profile",{user});
 });
+app.get("/edit-profile", isLoggedIn, async function(req,res){
+
+    let user = await userModel.findById(req.user.userid);
+
+    res.render("editprofile",{user});
+
+});
+app.post("/edit-profile", isLoggedIn, async function(req,res){
+
+    let {name,username,bio}=req.body;
+
+    await userModel.findByIdAndUpdate(req.user.userid,{
+
+        name,
+        username,
+        bio
+
+    });
+
+    res.redirect("/profile");
+
+});
 app.get("/like/:id", isLoggedIn, async function(req, res) {
 
     let post = await postModel.findById(req.params.id);
