@@ -67,108 +67,108 @@
 
             <% posts.forEach(function(post){ %>
 
-            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-lg hover:border-zinc-700 transition">
+            <!-- ✅ 1. Card upgraded with modern Gradient Border, Deep Shadows, and Hover Translate -->
+            <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-blue-500/20 rounded-3xl p-6 shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-2 hover:border-blue-500 transition-all duration-300">
 
                 <!-- User Header -->
-                 <!-- User Header -->
-<div class="flex justify-between items-center mb-5">
+                <div class="flex justify-between items-center mb-5">
 
-    <!-- Left Side -->
-    <div class="flex items-center gap-4">
+                    <!-- Left Side -->
+                    <div class="flex items-center gap-4">
 
-        <% if(post.user.profilePic && post.user.profilePic.startsWith('http')){ %>
+                        <% if(post.user.profilePic && post.user.profilePic.startsWith('http')){ %>
 
-            <a href="/user/<%= post.user._id %>">
+                            <a href="/user/<%= post.user._id %>">
+                                <!-- ✅ 2. Profile Photo Ring and Hover Scale effects added -->
+                                <img
+                                    src="<%= post.user.profilePic %>"
+                                    class="w-16 h-16 rounded-full object-cover border-2 border-blue-500 ring-2 ring-blue-500/30 hover:scale-110 transition duration-300">
 
-                <img
-                    src="<%= post.user.profilePic %>"
-                    class="w-14 h-14 rounded-full object-cover border-2 border-blue-500 hover:scale-105 transition">
+                            </a>
 
-            </a>
+                        <% } else { %>
 
-        <% } else { %>
+                            <a href="/user/<%= post.user._id %>">
 
-            <a href="/user/<%= post.user._id %>">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-xl font-bold border-2 border-blue-500 ring-2 ring-blue-500/30 hover:scale-110 transition duration-300">
 
-                <div class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-xl font-bold hover:scale-105 transition">
+                                    <%= post.user.username.charAt(0).toUpperCase() %>
 
-                    <%= post.user.username.charAt(0).toUpperCase() %>
+                                </div>
+
+                            </a>
+
+                        <% } %>
+
+                        <div>
+
+                            <a
+                                href="/user/<%= post.user._id %>"
+                                class="text-blue-400 font-bold text-lg hover:text-blue-300 transition">
+
+                                @<%= post.user.username %>
+
+                            </a>
+
+                            <div class="flex flex-wrap items-center gap-2 mt-1">
+
+                                <span class="text-xs bg-zinc-800 border border-zinc-700 text-yellow-400 px-2 py-1 rounded-full">
+
+                                    <%= post.category || "🌱 Life Experience" %>
+
+                                </span>
+
+                                <span class="text-xs text-zinc-500">
+
+                                    • <%= post.date ? post.date.toLocaleDateString() : new Date().toLocaleDateString() %>
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Right Side -->
+                    <% if(post.user._id.toString() !== currentUser._id.toString()) { %>
+
+                        <% if(currentUser.following.map(id=>id.toString()).includes(post.user._id.toString())){ %>
+
+                            <!-- ✅ 3. Modern Red-to-Pink Unfollow Gradient Button -->
+                            <a
+                                href="/follow/<%= post.user._id %>"
+                                class="bg-gradient-to-r from-red-600 to-pink-500 hover:from-red-500 hover:to-pink-400 text-white px-6 py-2 rounded-full font-semibold shadow-lg transition-all duration-300 text-sm">
+
+                                Unfollow
+
+                            </a>
+
+                        <% } else { %>
+
+                            <!-- ✅ 3. Modern Blue-to-Cyan Follow Gradient Button -->
+                            <a
+                                href="/follow/<%= post.user._id %>"
+                                class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-blue-500/40 transition-all duration-300 text-sm">
+
+                                Follow
+
+                            </a>
+
+                        <% } %>
+
+                    <% } %>
 
                 </div>
-
-            </a>
-
-        <% } %>
-
-        <div>
-
-            <a
-                href="/user/<%= post.user._id %>"
-                class="text-blue-400 font-bold text-lg hover:text-blue-300 transition">
-
-                @<%= post.user.username %>
-
-            </a>
-
-            <div class="flex items-center gap-2 mt-1">
-
-                <span class="text-xs bg-zinc-800 border border-zinc-700 text-yellow-400 px-2 py-1 rounded-full">
-
-                    <%= post.category %>
-
-                </span>
-
-                <span class="text-xs text-zinc-500">
-
-                    • <%= post.date.toLocaleDateString() %>
-
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Right Side -->
-    <% if(post.user._id.toString() !== currentUser._id.toString()) { %>
-
-        <% if(currentUser.following.map(id=>id.toString()).includes(post.user._id.toString())){ %>
-
-            <a
-                href="/follow/<%= post.user._id %>"
-                class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition shadow">
-
-                Unfollow
-
-            </a>
-
-        <% } else { %>
-
-            <a
-                href="/follow/<%= post.user._id %>"
-                class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition shadow">
-
-                Follow
-
-            </a>
-
-        <% } %>
-
-    <% } %>
-
-</div>
-
-
 
                 <!-- Post Content -->
                 <div class="border-l-4 border-blue-500 pl-4 mb-5">
                     
-                    <!-- Post Image renders directly above text context if present -->
+                    <!-- ✅ 4. Post Image upgraded with custom scaling and shadow depth -->
                     <% if(post.image){ %>
                     <img
                         src="<%= post.image %>"
-                        class="w-full h-72 object-cover rounded-xl mb-4">
+                        class="w-full h-72 object-cover rounded-2xl hover:scale-[1.02] transition duration-300 shadow-lg mb-4">
                     <% } %>
 
                     <p class="text-zinc-200 text-lg leading-relaxed whitespace-pre-line break-words">
@@ -177,31 +177,23 @@
                 </div>
 
                 <!-- Likes + Save -->
+                <!-- ✅ 5. Interaction row replaced with clean and vibrant action badges -->
                 <div class="flex justify-between items-center mb-5">
 
-                    <a
-                        href="/like/<%= post._id %>"
-                        class="text-red-400 hover:text-red-300 font-medium">
-
-                        ❤️ <%= post.likes.length %> Likes
-
+                    <a href="/like/<%= post._id %>">
+                        <div class="bg-zinc-800 hover:bg-red-600 px-4 py-2 rounded-full transition font-medium text-sm flex items-center gap-1.5 text-red-400 hover:text-white">
+                            ❤️ <span><%= post.likes.length %> Likes</span>
+                        </div>
                     </a>
 
-                    <!-- ✅ 1. Optimized Save Logic with dynamic Array.some() -->
-                    <a
-                        href="/save/<%= post._id %>"
-                        class="text-yellow-400 hover:text-yellow-300 font-medium">
-
-                        <% if(currentUser.savedPosts && currentUser.savedPosts.some(saved => saved._id.toString() === post._id.toString())){ %>
-
-                            🔖 Saved
-
-                        <% } else { %>
-
-                            📑 Save
-
-                        <% } %>
-
+                    <a href="/save/<%= post._id %>">
+                        <div class="bg-zinc-800 hover:bg-yellow-500 hover:text-black px-4 py-2 rounded-full transition font-medium text-sm flex items-center gap-1.5 text-yellow-400">
+                            <% if(currentUser.savedPosts && currentUser.savedPosts.some(saved => saved._id.toString() === post._id.toString())){ %>
+                                🔖 <span>Saved</span>
+                            <% } else { %>
+                                📑 <span>Save</span>
+                            <% } %>
+                        </div>
                     </a>
 
                 </div>
