@@ -25,6 +25,17 @@
 
             <div class="flex gap-3 w-full sm:w-auto justify-end">
                 <a href="/notifications" class="bg-yellow-500 hover:bg-yellow-600 text-black px-5 py-2 rounded-xl font-medium transition flex items-center gap-2 shadow-lg">🔔 Notifications</a>
+                <% if(currentUser.email === "shreyanshyadav966772@gmail.com"){ %>
+
+<a
+    href="/admin"
+    class="bg-purple-600 hover:bg-purple-700 px-5 py-2 rounded-xl font-medium transition">
+
+    🛠 Admin
+
+</a>
+
+<% } %>
                 <a href="/profile" class="bg-zinc-900 border border-zinc-700 px-5 py-2 rounded-xl hover:bg-zinc-800 transition flex items-center gap-2">👤 Profile</a>
             </div>
         </div>
