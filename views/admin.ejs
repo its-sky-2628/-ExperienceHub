@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExperienceHub Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-zinc-950 text-white min-h-screen">
+
+<div class="max-w-7xl mx-auto px-6 py-10">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-10">
+
+        <div>
+
+            <h1 class="text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent">
+                ExperienceHub Admin
+            </h1>
+
+            <p class="text-zinc-400 mt-2">
+                Welcome Admin 👋
+            </p>
+
+        </div>
+
+        <a
+            href="/feed"
+            class="bg-blue-600 hover:bg-blue-700 px-5 py-3 rounded-xl font-semibold transition">
+
+            ⬅ Back to Feed
+
+        </a>
+
+    </div>
+
+    <!-- Stats Cards -->
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Users -->
+        <div class="bg-gradient-to-br from-blue-600 to-cyan-500 rounded-3xl p-6 shadow-xl">
+
+            <p class="text-white/80 text-lg">
+                👥 Total Users
+            </p>
+
+            <h2 class="text-5xl font-bold mt-3">
+                <%= totalUsers %>
+            </h2>
+
+        </div>
+
+        <!-- Posts -->
+        <div class="bg-gradient-to-br from-green-600 to-emerald-500 rounded-3xl p-6 shadow-xl">
+
+            <p class="text-white/80 text-lg">
+                📝 Total Posts
+            </p>
+
+            <h2 class="text-5xl font-bold mt-3">
+                <%= totalPosts %>
+            </h2>
+
+        </div>
+
+        <!-- New Users -->
+        <div class="bg-gradient-to-br from-yellow-500 to-orange-500 rounded-3xl p-6 shadow-xl">
+
+            <p class="text-white/80 text-lg">
+                🆕 New Users Today
+            </p>
+
+            <h2 class="text-5xl font-bold mt-3">
+                <%= newUsersToday %>
+            </h2>
+
+        </div>
+
+        <!-- New Posts -->
+        <div class="bg-gradient-to-br from-pink-600 to-rose-500 rounded-3xl p-6 shadow-xl">
+
+            <p class="text-white/80 text-lg">
+                ✍ New Posts Today
+            </p>
+
+            <h2 class="text-5xl font-bold mt-3">
+                <%= newPostsToday %>
+            </h2>
+
+        </div>
+
+        <!-- Likes -->
+        <div class="bg-gradient-to-br from-red-600 to-pink-500 rounded-3xl p-6 shadow-xl">
+
+            <p class="text-white/80 text-lg">
+                ❤️ Total Likes
+            </p>
+
+            <h2 class="text-5xl font-bold mt-3">
+                <%= totalLikes %>
+            </h2>
+
+        </div>
+
+        <!-- Comments -->
+        <div class="bg-gradient-to-br from-purple-600 to-indigo-500 rounded-3xl p-6 shadow-xl">
+
+            <p class="text-white/80 text-lg">
+                💬 Total Comments
+            </p>
+
+            <h2 class="text-5xl font-bold mt-3">
+                <%= totalComments %>
+            </h2>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+
+    <div class="mt-14 text-center text-zinc-500 border-t border-zinc-800 pt-6">
+
+        ExperienceHub Admin Dashboard • Developed by
+
+        <span class="text-blue-400 font-semibold">
+            Shreyansh Yadav
+        </span>
+
+    </div>
+
+</div>
+
+</body>
+</html>

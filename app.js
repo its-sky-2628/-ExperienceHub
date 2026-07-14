@@ -122,6 +122,75 @@ app.get("/like/:id", isLoggedIn, async function(req, res) {
 
    res.redirect("/feed");
 });
+function isAdmin(req,res,next){
+
+    if(req.user.email !== "shreyanshyadav9672@gmail.com"){
+        return res.send("Access Denied");
+    }
+
+    next();
+
+}
+app.get("/admin", isLoggedIn, isAdmin, async function(req, res){
+
+    const totalUsers = await userModel.countDocuments();
+
+    const totalPosts = await postModel.countDocuments();
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const newUsersToday = await userModel.countDocuments({
+        createdAt: { $gte: today }
+    });
+
+    const newPostsToday = await postModel.countDocuments({
+        createdAt: { $gte: today }
+    });
+
+    const posts = await postModel.find();
+
+    let totalLikes = 0;
+    let totalComments = 0;
+
+    posts.forEach(post=>{
+        totalLikes += post.likes.length;
+        totalComments += post.comments.length;
+    });
+
+    res.render("admin",{
+        totalUsers,
+        totalPosts,
+        newUsersToday,
+        newPostsToday,
+        totalLikes,
+        totalComments
+    });
+
+});
+app.get("/admin/delete-post/:id",isLoggedIn,isAdmin,async function(req,res){
+
+    await postModel.findByIdAndDelete(req.params.id);
+
+    await userModel.updateMany(
+        {},
+        {$pull:{posts:req.params.id}}
+    );
+
+    res.redirect("/admin");
+
+});
+app.get("/admin/delete-user/:id",isLoggedIn,isAdmin,async function(req,res){
+
+    await userModel.findByIdAndDelete(req.params.id);
+
+    await postModel.deleteMany({
+        user:req.params.id
+    });
+
+    res.redirect("/admin");
+
+});
 app.get("/edit/:id", isLoggedIn, async function(req, res) {
 
     let post = await postModel.findOne({ _id: req.params.id });
