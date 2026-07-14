@@ -1,4 +1,5 @@
 const express = require("express");
+const notificationModel = require("./model/notification");
 const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const mongoose = require("mongoose");
@@ -103,6 +104,21 @@ app.get("/like/:id", isLoggedIn, async function(req, res) {
         ? { $pull: { likes: req.user.userid } }
         : { $push: { likes: req.user.userid } }
     );
+    if(!liked && post.user.toString() !== req.user.userid){
+
+    await notificationModel.create({
+
+        receiver: post.user,
+
+        sender: req.user.userid,
+
+        type: "like",
+
+        post: post._id
+
+    });
+
+}
 
     res.redirect("/profile");
 });
@@ -265,6 +281,21 @@ app.post("/comment/:id", isLoggedIn, async function(req,res){
     });
 
     await post.save();
+    if(post.user.toString() !== req.user.userid){
+
+    await notificationModel.create({
+
+        receiver: post.user,
+
+        sender: req.user.userid,
+
+        type: "comment",
+
+        post: post._id
+
+    });
+
+}
 
     res.redirect("/profile");
 });
@@ -398,6 +429,15 @@ app.get("/follow/:id", isLoggedIn, async function(req,res){
         currentUser.following.push(targetUser._id);
 
         targetUser.followers.push(currentUser._id);
+        await notificationModel.create({
+
+        receiver: targetUser._id,
+
+        sender: currentUser._id,
+
+        type: "follow"
+
+});
 
     }
 
@@ -449,6 +489,24 @@ app.get("/user/:id", isLoggedIn, async function(req,res){
     res.render("user-profile",{
         profileUser,
         currentUser
+    });
+
+});
+app.get("/notifications", isLoggedIn, async function(req,res){
+
+    let notifications = await notificationModel.find({
+
+        receiver: req.user.userid
+
+    })
+    .populate("sender")
+    .populate("post")
+    .sort({createdAt:-1});
+
+    res.render("notifications",{
+
+        notifications
+
     });
 
 });

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications • ExperienceHub</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-zinc-950 text-white min-h-screen">
+
+<div class="max-w-5xl mx-auto py-10 px-5">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center border-b border-zinc-800 pb-6 mb-8">
+
+        <div>
+
+            <h1 class="text-5xl font-bold">
+
+                🔔 Notifications
+
+            </h1>
+
+            <p class="text-zinc-500 mt-2">
+
+                Stay updated with everything happening on ExperienceHub.
+
+            </p>
+
+        </div>
+
+        <a
+        href="/feed"
+        class="bg-blue-600 hover:bg-blue-700 px-5 py-3 rounded-xl font-semibold transition">
+
+            ← Back to Feed
+
+        </a>
+
+    </div>
+
+
+
+    <% if(notifications.length===0){ %>
+
+        <div class="bg-zinc-900 rounded-3xl border border-zinc-800 py-24 text-center">
+
+            <div class="text-7xl mb-5">
+
+                🔕
+
+            </div>
+
+            <h2 class="text-3xl font-bold">
+
+                No Notifications Yet
+
+            </h2>
+
+            <p class="text-zinc-500 mt-3">
+
+                Likes, comments and follows will appear here.
+
+            </p>
+
+        </div>
+
+    <% } %>
+
+
+
+    <% notifications.forEach(function(n){ %>
+
+    <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 mb-5 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition">
+
+        <div class="flex justify-between items-center">
+
+            <div class="flex items-center gap-5">
+
+                <!-- Profile -->
+
+                <% if(n.sender.profilePic){ %>
+
+                    <img
+                    src="<%= n.sender.profilePic %>"
+                    class="w-16 h-16 rounded-full object-cover border-2 border-blue-500">
+
+                <% } else { %>
+
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex justify-center items-center text-2xl font-bold">
+
+                        <%= n.sender.username.charAt(0).toUpperCase() %>
+
+                    </div>
+
+                <% } %>
+
+                <div>
+
+                    <% if(n.type==="like"){ %>
+
+                        <h2 class="text-xl">
+
+                            ❤️ <span class="font-bold text-blue-400">@<%= n.sender.username %></span>
+
+                            liked your post
+
+                        </h2>
+
+                    <% } %>
+
+
+
+                    <% if(n.type==="comment"){ %>
+
+                        <h2 class="text-xl">
+
+                            💬 <span class="font-bold text-green-400">@<%= n.sender.username %></span>
+
+                            commented on your post
+
+                        </h2>
+
+                    <% } %>
+
+
+
+                    <% if(n.type==="follow"){ %>
+
+                        <h2 class="text-xl">
+
+                            👤 <span class="font-bold text-purple-400">@<%= n.sender.username %></span>
+
+                            started following you
+
+                        </h2>
+
+                    <% } %>
+
+
+
+                    <p class="text-zinc-500 text-sm mt-2">
+
+                        <%= new Date(n.createdAt).toLocaleString("en-IN") %>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Right Badge -->
+
+            <% if(n.type==="like"){ %>
+
+                <span class="bg-red-500/20 text-red-400 px-4 py-2 rounded-full">
+
+                    ❤️ Like
+
+                </span>
+
+            <% } %>
+
+
+
+            <% if(n.type==="comment"){ %>
+
+                <span class="bg-green-500/20 text-green-400 px-4 py-2 rounded-full">
+
+                    💬 Comment
+
+                </span>
+
+            <% } %>
+
+
+
+            <% if(n.type==="follow"){ %>
+
+                <span class="bg-blue-500/20 text-blue-400 px-4 py-2 rounded-full">
+
+                    👤 Follow
+
+                </span>
+
+            <% } %>
+
+        </div>
+
+    </div>
+
+    <% }) %>
+
+</div>
+
+</body>
+</html>

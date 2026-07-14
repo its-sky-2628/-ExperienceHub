@@ -20,21 +20,23 @@
                 Discover stories, experiences and ideas from people around the world.
             </p>
         </div>
-        <div class="flex justify-between items-center mb-8">
+        
+        <!-- Navigation bar with new Notification and Profile controllers -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
 
             <form
                 action="/search"
                 method="get"
-                class="flex gap-2">
+                class="flex gap-2 w-full sm:w-auto">
 
                 <input
                     type="text"
                     name="search"
                     placeholder="🔍 Search users..."
-                    class="bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2 w-72 focus:outline-none focus:border-blue-500">
+                    class="bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2 w-full sm:w-72 focus:outline-none focus:border-blue-500">
 
                 <button
-                    class="bg-blue-600 hover:bg-blue-700 px-4 rounded-xl">
+                    class="bg-blue-600 hover:bg-blue-700 px-4 rounded-xl font-medium transition">
 
                     Search
 
@@ -42,13 +44,27 @@
 
             </form>
 
-            <a
-                href="/profile"
-                class="bg-zinc-900 border border-zinc-700 px-4 py-2 rounded-xl hover:bg-zinc-800">
+            <!-- Action buttons container (Notifications + Profile) -->
+            <div class="flex gap-3 w-full sm:w-auto justify-end">
+                
+                <!-- ✅ STEP 8: Notifications Button Added and Aligned perfectly -->
+                <a
+                    href="/notifications"
+                    class="bg-yellow-500 hover:bg-yellow-600 text-black px-5 py-2 rounded-xl font-medium transition flex items-center gap-2 shadow-lg hover:shadow-yellow-500/20">
 
-                👤 Profile
+                    🔔 Notifications
 
-            </a>
+                </a>
+
+                <a
+                    href="/profile"
+                    class="bg-zinc-900 border border-zinc-700 px-5 py-2 rounded-xl hover:bg-zinc-800 transition flex items-center gap-2">
+
+                    👤 Profile
+
+                </a>
+
+            </div>
 
         </div>
 
@@ -67,7 +83,7 @@
 
             <% posts.forEach(function(post){ %>
 
-            <!-- ✅ 1. Card upgraded with modern Gradient Border, Deep Shadows, and Hover Translate -->
+            <!-- Card upgraded with modern Gradient Border, Deep Shadows, and Hover Translate -->
             <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-blue-500/20 rounded-3xl p-6 shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-2 hover:border-blue-500 transition-all duration-300">
 
                 <!-- User Header -->
@@ -79,7 +95,7 @@
                         <% if(post.user.profilePic && post.user.profilePic.startsWith('http')){ %>
 
                             <a href="/user/<%= post.user._id %>">
-                                <!-- ✅ 2. Profile Photo Ring and Hover Scale effects added -->
+                                <!-- Profile Photo Ring and Hover Scale effects -->
                                 <img
                                     src="<%= post.user.profilePic %>"
                                     class="w-16 h-16 rounded-full object-cover border-2 border-blue-500 ring-2 ring-blue-500/30 hover:scale-110 transition duration-300">
@@ -135,7 +151,7 @@
 
                         <% if(currentUser.following.map(id=>id.toString()).includes(post.user._id.toString())){ %>
 
-                            <!-- ✅ 3. Modern Red-to-Pink Unfollow Gradient Button -->
+                            <!-- Modern Red-to-Pink Unfollow Gradient Button -->
                             <a
                                 href="/follow/<%= post.user._id %>"
                                 class="bg-gradient-to-r from-red-600 to-pink-500 hover:from-red-500 hover:to-pink-400 text-white px-6 py-2 rounded-full font-semibold shadow-lg transition-all duration-300 text-sm">
@@ -146,7 +162,7 @@
 
                         <% } else { %>
 
-                            <!-- ✅ 3. Modern Blue-to-Cyan Follow Gradient Button -->
+                            <!-- Modern Blue-to-Cyan Follow Gradient Button -->
                             <a
                                 href="/follow/<%= post.user._id %>"
                                 class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-blue-500/40 transition-all duration-300 text-sm">
@@ -164,7 +180,7 @@
                 <!-- Post Content -->
                 <div class="border-l-4 border-blue-500 pl-4 mb-5">
                     
-                    <!-- ✅ 4. Post Image upgraded with custom scaling and shadow depth -->
+                    <!-- Post Image renders directly above text context if present -->
                     <% if(post.image){ %>
                     <img
                         src="<%= post.image %>"
@@ -177,7 +193,7 @@
                 </div>
 
                 <!-- Likes + Save -->
-                <!-- ✅ 5. Interaction row replaced with clean and vibrant action badges -->
+                <!-- Interaction row replaced with clean and vibrant action badges -->
                 <div class="flex justify-between items-center mb-5">
 
                     <a href="/like/<%= post._id %>">
