@@ -1,131 +1,141 @@
-<!DOCTYPE html>
+x<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile - ExperienceHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Smooth Custom Glowing Animations */
-        @keyframes pulse-glow {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
-            50% { transform: scale(1.03); box-shadow: 0 0 25px rgba(59, 130, 246, 0.7); }
+        /* Superhero / Gaming Glow Mode Core Elements */
+        @keyframes floatEffect {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
         }
-        .animate-avatar {
-            animation: pulse-glow 3s infinite ease-in-out;
+        @keyframes subtlePulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(59, 130, 246, 0.4), inset 0 0 15px rgba(59, 130, 246, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.6), inset 0 0 25px rgba(239, 68, 68, 0.3); }
         }
-        .focus-glow:focus {
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
-            transform: translateY(-2px);
+        .hero-float {
+            animation: floatEffect 4s infinite ease-in-out;
+        }
+        .card-pulse {
+            animation: subtlePulse 4s infinite ease-in-out;
+        }
+        .custom-focus:focus {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+            border-color: #3b82f6;
+            background-color: rgba(9, 9, 11, 0.9);
+            transform: scale(1.01);
         }
     </style>
 </head>
 
-<body class="bg-zinc-950 text-white min-h-screen selection:bg-blue-600 selection:text-white">
+<body class="bg-zinc-950 text-white min-h-screen selection:bg-red-600 selection:text-white overflow-x-hidden">
 
-<div class="max-w-6xl mx-auto py-12 px-6">
+<div class="max-w-6xl mx-auto py-12 px-6 relative">
 
-    <!-- TOP HEADER NAVIGATION -->
-    <div class="flex justify-between items-center mb-10 pb-6 border-b border-zinc-900">
-        <a href="/profile" class="group flex items-center gap-2 text-zinc-400 hover:text-white transition-all duration-300">
-            <span class="transform group-hover:-translate-x-1 transition-transform">⬅️</span> Back to Profile
+    <!-- Ambient Neon Lights -->
+    <div class="absolute top-1/4 -left-20 w-72 h-72 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-1/4 -right-20 w-72 h-72 bg-red-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <!-- NAVIGATION HEADER -->
+    <div class="flex justify-between items-center mb-10 pb-6 border-b border-zinc-900 relative z-10">
+        <a href="/profile" class="group flex items-center gap-2 text-zinc-400 hover:text-white transition-all duration-300 font-medium">
+            <span class="inline-block transform group-hover:-translate-x-2 transition-transform duration-300">⚡</span> Back to Feed / Profile
         </a>
-        <span class="text-xs text-zinc-500 uppercase tracking-widest bg-zinc-900/50 px-3 py-1 rounded-full border border-zinc-800">Settings</span>
+        <span class="text-xs bg-red-500/10 text-red-400 font-mono px-3 py-1 rounded-full border border-red-500/20 tracking-wider animate-pulse">
+            <i class="fa-solid Nav-Icon fa-circle-dot mr-1 text-[10px]"></i> Live Editing Setup
+        </span>
     </div>
 
-    <h1 class="text-4xl md:text-5xl font-extrabold text-center mb-12 tracking-tight">
-        ✏️ <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Edit Profile</span>
-    </h1>
+    <!-- MAIN GRID SECTION -->
+    <div class="grid lg:grid-cols-12 gap-10 items-center relative z-10">
 
-    <div class="grid lg:grid-cols-12 gap-10">
-
-        <!-- LEFT CARD (Interactive Preview) -->
-        <div class="lg:col-span-5 bg-zinc-900/40 backdrop-blur-md rounded-3xl border border-zinc-800/80 p-8 flex flex-col justify-center items-center relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-500">
+        <!-- LEFT DISPLAY SIDE (The Ultimate Cartoon Preview Section) -->
+        <div class="lg:col-span-5 flex flex-col items-center">
             
-            <!-- Subtle background ambient light -->
-            <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-all duration-500"></div>
-            
-            <div class="flex flex-col items-center relative z-10">
+            <!-- Character Layer Box -->
+            <div class="w-full max-w-sm bg-gradient-to-b from-zinc-900 to-zinc-950 rounded-3xl border border-zinc-800/80 p-6 text-center card-pulse relative group">
+                
+                <!-- CARTOON GIF / AVATAR POPPER (Spider-Man Interactive Element) -->
+                <div class="absolute -top-24 left-1/2 transform -translate-x-1/2 w-32 h-32 hero-float pointer-events-none drop-shadow-[0_10px_15px_rgba(239,68,68,0.5)]">
+                    <img src="https://media.giphy.com/media/1qjCXhkDsxbHs4IxV8/giphy.gif" alt="Spidey Cartoon Character" class="w-full h-full object-contain">
+                </div>
 
-                <div class="relative">
+                <!-- Custom Avatar Frame Container -->
+                <div class="mt-12 mb-6 relative inline-block">
                     <% if(user.profilePic && user.profilePic.trim() !== ""){ %>
-                        <img
-                            src="<%= user.profilePic %>"
-                            class="w-36 h-36 md:w-40 md:h-40 rounded-full object-cover border-4 border-blue-500/80 shadow-2xl animate-avatar">
+                        <img src="<%= user.profilePic %>" class="w-28 h-28 rounded-2xl object-cover mx-auto border-2 border-blue-500 ring-4 ring-zinc-900 shadow-2xl transition-transform duration-500 group-hover:scale-105">
                     <% } else { %>
-                        <div class="w-36 h-36 md:w-40 md:h-40 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-700 flex justify-center items-center text-6xl font-black shadow-2xl animate-avatar border-4 border-blue-500/40">
+                        <div class="w-28 h-28 rounded-2xl bg-gradient-to-tr from-red-600 via-blue-600 to-indigo-700 mx-auto flex items-center justify-center text-4xl font-black border-2 border-white/20 ring-4 ring-zinc-900 shadow-2xl">
                             <%= user.name.charAt(0).toUpperCase() %>
                         </div>
                     <% } %>
-                    <span class="absolute bottom-2 right-2 bg-blue-600 text-xs px-2 py-1 rounded-md font-semibold border border-zinc-950">LIVE</span>
+                    <div class="absolute -bottom-2 -right-2 bg-green-500 w-5 h-5 rounded-full border-4 border-zinc-900"></div>
                 </div>
 
-                <h2 class="text-3xl font-bold mt-8 tracking-tight group-hover:text-blue-400 transition-colors duration-300">
+                <!-- Bio / Handle Data Card Stack -->
+                <h2 class="text-2xl font-black tracking-tight text-zinc-100 group-hover:text-blue-400 transition-colors duration-300">
                     <%= user.name %>
                 </h2>
-
-                <p class="text-zinc-500 font-mono text-sm mt-1">
-                    @<%= user.username %>
+                <p class="text-red-400 font-mono text-sm mt-1 font-semibold">@<%= user.username %></p>
+                
+                <div class="h-[1px] bg-gradient-to-r from-transparent via-zinc-800 to-transparent my-4"></div>
+                
+                <p class="text-zinc-400 text-sm leading-relaxed italic px-2 bg-zinc-950/40 py-3 rounded-xl border border-zinc-900">
+                    "<%= (user.bio && user.bio.trim() !== '') ? user.bio : 'Web-slinging through coding platforms! Update your bio now.' %>"
                 </p>
-
-                <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-zinc-800 to-transparent my-6"></div>
-
-                <p class="text-center text-zinc-400 text-sm leading-relaxed max-w-sm italic">
-                    "<%= (user.bio && user.bio.trim() !== '') ? user.bio : 'Write something incredible about yourself in the bio form...' %>"
-                </p>
-
             </div>
+            
         </div>
 
-        <!-- RIGHT CARD (Animated Form Configuration) -->
-        <div class="lg:col-span-7 bg-zinc-900/40 backdrop-blur-md rounded-3xl border border-zinc-800/80 p-8 hover:border-zinc-700/50 transition-all duration-500 relative">
+        <!-- RIGHT DISPLAY SIDE (Action Forms Layout Elements) -->
+        <div class="lg:col-span-7 bg-zinc-900/40 backdrop-blur-xl rounded-3xl border border-zinc-800 p-8 relative overflow-hidden">
             
             <form action="/edit-profile" method="post" class="space-y-6">
 
-                <!-- Input Field: Name -->
-                <div class="group/field">
-                    <label class="block mb-2 text-sm font-semibold text-zinc-400 group-focus-within/field:text-blue-400 transition-colors duration-300">
-                        Full Name
+                <!-- Input Item Field: Full Name -->
+                <div>
+                    <label class="block mb-2 text-sm font-bold text-zinc-400 flex items-center gap-2">
+                        <i class="fa-solid fa-signature text-blue-500"></i> Full Identity Name
                     </label>
                     <input
                         type="text"
                         name="name"
                         value="<%= user.name %>"
                         required
-                        class="w-full bg-zinc-950/80 border border-zinc-800 hover:border-zinc-700 focus:border-blue-500 rounded-2xl p-4 text-white focus:outline-none transition-all duration-300 focus-glow">
+                        class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-white focus:outline-none transition-all duration-300 custom-focus">
                 </div>
 
-                <!-- Input Field: Username -->
-                <div class="group/field">
-                    <label class="block mb-2 text-sm font-semibold text-zinc-400 group-focus-within/field:text-blue-400 transition-colors duration-300">
-                        Username
+                <!-- Input Item Field: Username -->
+                <div>
+                    <label class="block mb-2 text-sm font-bold text-zinc-400 flex items-center gap-2">
+                        <i class="fa-solid fa-at text-red-500"></i> Secret Handle / Username
                     </label>
-                    <div class="relative">
-                        <span class="absolute left-4 top-4 text-zinc-600 font-mono">@</span>
-                        <input
-                            type="text"
-                            name="username"
-                            value="<%= user.username %>"
-                            required
-                            class="w-full bg-zinc-950/80 border border-zinc-800 hover:border-zinc-700 focus:border-blue-500 rounded-2xl p-4 pl-9 text-white focus:outline-none transition-all duration-300 focus-glow font-mono">
-                    </div>
+                    <input
+                        type="text"
+                        name="username"
+                        value="<%= user.username %>"
+                        required
+                        class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-white focus:outline-none transition-all duration-300 custom-focus font-mono">
                 </div>
 
-                <!-- Input Field: Bio -->
-                <div class="group/field">
-                    <label class="block mb-2 text-sm font-semibold text-zinc-400 group-focus-within/field:text-blue-400 transition-colors duration-300">
-                        Biography
+                <!-- Input Item Field: Bio Description -->
+                <div>
+                    <label class="block mb-2 text-sm font-bold text-zinc-400 flex items-center gap-2">
+                        <i class="fa-solid fa-scroll text-green-500"></i> Superhero Bio Logs
                     </label>
                     <textarea
                         name="bio"
                         rows="4"
-                        placeholder="Tell the world your story, experiences, or tech stack..."
-                        class="w-full bg-zinc-950/80 border border-zinc-800 hover:border-zinc-700 focus:border-blue-500 rounded-2xl p-4 text-white focus:outline-none transition-all duration-300 focus-glow resize-none leading-relaxed"><%= user.bio %></textarea>
+                        placeholder="Write down your legendary developer story..."
+                        class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-white focus:outline-none transition-all duration-300 custom-focus resize-none leading-relaxed"><%= user.bio %></textarea>
                 </div>
 
-                <!-- Animated Interactive Save Button -->
-                <button class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 py-4 rounded-2xl text-lg font-bold transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/25 active:scale-95 flex items-center justify-center gap-2">
-                    <span>💾</span> Save Changes
+                <!-- Ultimate Save Button with Internal Particle Spark Feel -->
+                <button type="submit" class="w-full bg-gradient-to-r from-red-600 via-purple-600 to-blue-600 hover:from-red-500 hover:to-blue-500 text-white py-4 rounded-xl text-lg font-black transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] active:scale-[0.98] flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-bolt animate-bounce"></i> SAVE PROFILE CHANGES
                 </button>
 
             </form>
