@@ -347,27 +347,55 @@ function isLoggedIn(req, res, next) {
     next();
     }
 }
-app.get("/feed", isLoggedIn, async function(req,res){
+app.get("/feed", isLoggedIn, async function(req, res){
 
     let filter = {};
 
+    // Category Filter
     if(req.query.category){
         filter.category = req.query.category;
     }
 
-    let posts = await postModel.find(filter)
+    // Current User
+    let currentUser = await userModel
+        .findById(req.user.userid)
+        .populate("savedPosts");
+
+    let posts;
+
+    // Following Feed
+    if(req.query.filter === "following"){
+
+        posts = await postModel.find({
+            user: { $in: currentUser.following }
+        })
         .populate("user")
-        .sort({date:-1});
+        .sort({ date: -1 });
+
+    } else {
+
+        posts = await postModel.find(filter)
+            .populate("user");
+
+        // Trending
+        if(req.query.filter === "trending"){
+
+            posts.sort((a, b) => b.likes.length - a.likes.length);
+
+        } else {
+
+            // Latest (Default)
+            posts.sort((a, b) => b.date - a.date);
+
+        }
+
+    }
 
     posts.forEach(post => {
         console.log(post.user.username, "=>", post.user.profilePic);
     });
 
-    let currentUser = await userModel
-    .findById(req.user.userid)
-    .populate("savedPosts");
-
-    res.render("feed",{
+    res.render("feed", {
         posts,
         currentUser
     });
