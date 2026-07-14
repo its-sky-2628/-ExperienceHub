@@ -187,12 +187,26 @@
                         placeholder="What's on your mind today?"
                         class="w-full h-40 bg-zinc-950 border border-zinc-800 rounded-xl p-4 resize-none focus:outline-none focus:border-blue-500"></textarea>
 
-                    <!-- ✅ Image upload node attached directly beneath content textarea -->
+                    <!-- ✅ Modern Premium Drag/Drop Style Upload Container -->
                     <div class="mt-4">
-                        <label class="block mb-2 text-zinc-300 font-medium">
+                        <label class="block text-zinc-300 font-medium mb-2">
                             📷 Upload Image (Optional)
                         </label>
-                        <input type="file" name="postImage" accept="image/*" class="w-full text-zinc-300">
+                        <label for="postImage" class="cursor-pointer block border-2 border-dashed border-zinc-700 hover:border-blue-500 rounded-2xl p-6 text-center transition">
+                            <div class="text-5xl mb-3">
+                                📸
+                            </div>
+                            <h3 class="text-lg font-semibold">
+                                Click to Upload
+                            </h3>
+                            <p class="text-zinc-500 text-sm mt-2">
+                                JPG, PNG or WEBP
+                            </p>
+                            <span id="fileName" class="block mt-4 text-blue-400 text-sm font-medium">
+                                No file selected
+                            </span>
+                        </label>
+                        <input id="postImage" type="file" name="postImage" accept="image/*" class="hidden">
                     </div>
 
                     <button
@@ -329,6 +343,19 @@
             Shreyansh Yadav
         </span>
     </footer>
+
+    <!-- ✅ JavaScript controller to update selection feedback dynamically -->
+    <script>
+        const input = document.getElementById("postImage");
+        const fileName = document.getElementById("fileName");
+        input.addEventListener("change", function(){
+            if(this.files.length){
+                fileName.innerHTML = "✅ " + this.files[0].name;
+            } else {
+                fileName.innerHTML = "No file selected";
+            }
+        });
+    </script>
 
 </body>
 </html>
