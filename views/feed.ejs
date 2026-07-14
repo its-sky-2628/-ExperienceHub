@@ -22,35 +22,35 @@
         </div>
         <div class="flex justify-between items-center mb-8">
 
-    <form
-        action="/search"
-        method="get"
-        class="flex gap-2">
+            <form
+                action="/search"
+                method="get"
+                class="flex gap-2">
 
-        <input
-            type="text"
-            name="search"
-            placeholder="🔍 Search users..."
-            class="bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2 w-72 focus:outline-none focus:border-blue-500">
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="🔍 Search users..."
+                    class="bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2 w-72 focus:outline-none focus:border-blue-500">
 
-        <button
-            class="bg-blue-600 hover:bg-blue-700 px-4 rounded-xl">
+                <button
+                    class="bg-blue-600 hover:bg-blue-700 px-4 rounded-xl">
 
-            Search
+                    Search
 
-        </button>
+                </button>
 
-    </form>
+            </form>
 
-    <a
-        href="/profile"
-        class="bg-zinc-900 border border-zinc-700 px-4 py-2 rounded-xl hover:bg-zinc-800">
+            <a
+                href="/profile"
+                class="bg-zinc-900 border border-zinc-700 px-4 py-2 rounded-xl hover:bg-zinc-800">
 
-        👤 Profile
+                👤 Profile
 
-    </a>
+            </a>
 
-</div>
+        </div>
 
         <!-- Category Filters -->
         <div class="flex flex-wrap justify-center gap-3 mb-10">
@@ -114,40 +114,47 @@
 
                 <!-- Post Content -->
                 <div class="border-l-4 border-blue-500 pl-4 mb-5">
+                    
+                    <!-- ✅ Post Image renders directly above text context if present -->
+                    <% if(post.image){ %>
+                    <img
+                        src="<%= post.image %>"
+                        class="w-full h-72 object-cover rounded-xl mb-4">
+                    <% } %>
+
                     <p class="text-zinc-200 text-lg leading-relaxed whitespace-pre-line break-words">
                         <%= post.content %>
                     </p>
                 </div>
 
-                <!-- Likes -->
-                 <!-- Likes + Save -->
-<div class="flex justify-between items-center mb-5">
+                <!-- Likes + Save -->
+                <div class="flex justify-between items-center mb-5">
 
-    <a
-        href="/like/<%= post._id %>"
-        class="text-red-400 hover:text-red-300 font-medium">
+                    <a
+                        href="/like/<%= post._id %>"
+                        class="text-red-400 hover:text-red-300 font-medium">
 
-        ❤️ <%= post.likes.length %> Likes
+                        ❤️ <%= post.likes.length %> Likes
 
-    </a>
+                    </a>
 
-    <a
-        href="/save/<%= post._id %>"
-        class="text-yellow-400 hover:text-yellow-300 font-medium">
+                    <a
+                        href="/save/<%= post._id %>"
+                        class="text-yellow-400 hover:text-yellow-300 font-medium">
 
-        <% if(currentUser.savedPosts && currentUser.savedPosts.map(id => id.toString()).includes(post._id.toString())){ %>
+                        <% if(currentUser.savedPosts && currentUser.savedPosts.map(id => id.toString()).includes(post._id.toString())){ %>
 
-            🔖 Saved
+                            🔖 Saved
 
-        <% } else { %>
+                        <% } else { %>
 
-            📑 Save
+                            📑 Save
 
-        <% } %>
+                        <% } %>
 
-    </a>
+                    </a>
 
-</div>
+                </div>
 
                 <!-- Comment Form -->
                 <form action="/comment/<%= post._id %>" method="post">

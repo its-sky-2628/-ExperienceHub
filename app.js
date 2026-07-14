@@ -24,7 +24,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieparser());
 app.use(express.static("public"));
-const storage = new CloudinaryStorage({
+
+
+const profileStorage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: "experiencehub_profiles",
@@ -32,12 +34,21 @@ const storage = new CloudinaryStorage({
     }
 });
 
-const upload = multer({ storage });
+const profileUpload = multer({
+    storage: profileStorage
+});
 
+const postStorage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "experiencehub_posts",
+        allowed_formats: ["jpg", "jpeg", "png", "webp"]
+    }
+});
 
-
-app.use("/uploads", express.static("uploads"));
-
+const postUpload = multer({
+    storage: postStorage
+});
 app.get("/", function(req, res) {
     res.render("index");
 });
@@ -153,27 +164,39 @@ app.post("/update/:id", isLoggedIn, async function(req, res) {
     res.redirect("/profile");
 });
 
-app.post("/post", isLoggedIn, async function(req, res){
+app.post(
+    "/post",
+    isLoggedIn,
+    postUpload.single("postImage"),
+    async function(req, res){
 
-    let { content, category } = req.body;
+        let { content, category } = req.body;
 
-    let user = await userModel.findOne({
-        email: req.user.email
-    });
+        let user = await userModel.findOne({
+            email: req.user.email
+        });
 
-    let post = await postModel.create({
-        user: user._id,
-        content: content,
-        category: category
-    });
+        let image = "";
 
-    user.posts.push(post._id);
+        if(req.file){
+            image = req.file.path;   // Cloudinary URL
+        }
 
-    await user.save();
+        let post = await postModel.create({
+            user: user._id,
+            content: content,
+            category: category,
+            image: image
+        });
 
-    res.redirect("/profile");
+        user.posts.push(post._id);
 
-});
+        await user.save();
+
+        res.redirect("/profile");
+
+    }
+);
 app.get("/login", function(req, res) {
     res.render("login");
 });
@@ -350,13 +373,6 @@ app.get("/search", isLoggedIn, async function(req,res){
 app.get("/forgot-password", function(req,res){
     res.render("forgot-password");
 });
-app.get("/edit-profile", isLoggedIn, async function(req,res){
-
-    let user = await userModel.findById(req.user.userid);
-
-    res.render("editprofile", { user });
-
-});
 app.get("/follow/:id", isLoggedIn, async function(req,res){
 
     let currentUser = await userModel.findById(req.user.userid);
@@ -392,7 +408,7 @@ app.get("/follow/:id", isLoggedIn, async function(req,res){
     res.redirect("/feed");
 
 });
-app.post("/upload-profile",isLoggedIn,upload.single("profilePic"),async function(req,res){
+app.post("/upload-profile",isLoggedIn,profileUpload.single("profilePic"),async function(req,res){
         try{
 
             if(!req.file){
@@ -417,22 +433,6 @@ app.post("/upload-profile",isLoggedIn,upload.single("profilePic"),async function
 
     }
 );
-app.post("/edit-profile", isLoggedIn, async function(req,res){
-
-    let { name, username, bio } = req.body;
-
-    await userModel.findByIdAndUpdate(
-        req.user.userid,
-        {
-            name,
-            username,
-            bio
-        }
-    );
-
-    res.redirect("/profile");
-
-});
 app.listen(process.env.PORT || 3000, function() {
     console.log("Server running");
 });

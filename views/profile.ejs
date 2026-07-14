@@ -6,33 +6,29 @@
     <title>ExperienceHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<footer class="text-center text-zinc-500 py-6 border-t border-zinc-800">
-     ExperienceHub 2026 • Crafted by
-    <span class="text-blue-400 font-semibold">
-        Shreyansh Yadav
-    </span>
-</footer>
 <body class="bg-zinc-950 text-white">
 
-<nav class="flex justify-between items-center flex-wrap gap-4 mb-10">
+    <div class="max-w-6xl mx-auto px-4 py-8">
 
-    <h1 class="text-3xl font-bold text-white">
-        ⚡️ ExperienceHub
-    </h1>
+        <nav class="flex justify-between items-center flex-wrap gap-4 mb-10">
 
-    <div class="flex gap-3 flex-wrap">
-        <a href="/feed"
-           class="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-xl font-medium transition">
-            Explore Posts
-        </a>
+            <h1 class="text-3xl font-bold text-white">
+                ⚡️ ExperienceHub
+            </h1>
 
-        <a href="/logout"
-           class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium transition">
-            Logout
-        </a>
-    </div>
+            <div class="flex gap-3 flex-wrap">
+                <a href="/feed"
+                   class="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-xl font-medium transition">
+                    Explore Posts
+                </a>
 
-</nav>      
+                <a href="/logout"
+                   class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium transition">
+                    Logout
+                </a>
+            </div>
+
+        </nav>      
 
         <!-- Top Section -->
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-10">
@@ -42,79 +38,79 @@
 
                 <div class="flex flex-col items-center">
 
-<div class="flex flex-col items-center">
+                    <div class="flex flex-col items-center">
 
-        <% if(user.profilePic){ %>
+                        <% if(user.profilePic){ %>
 
-        <img
-    src="<%= user.profilePic %>"
-    alt="Profile"
-        class="w-24 h-24 rounded-full object-cover border-4 border-blue-500 shadow-lg">
+                        <img
+                            src="<%= user.profilePic %>"
+                            alt="Profile"
+                            class="w-24 h-24 rounded-full object-cover border-4 border-blue-500 shadow-lg">
 
-        <% } else { %>
+                        <% } else { %>
 
-        <div class="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-4xl font-bold">
-            <%= user.name.charAt(0).toUpperCase() %>
-        </div>
+                        <div class="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-4xl font-bold">
+                            <%= user.name.charAt(0).toUpperCase() %>
+                        </div>
 
-    <% } %>
+                        <% } %>
 
-    <h2 class="text-xl font-bold mt-4">
-        <%= user.name %>
-    </h2>
+                        <h2 class="text-xl font-bold mt-4">
+                            <%= user.name %>
+                        </h2>
 
-    <p class="text-zinc-400">
-        @<%= user.username %>
-    </p>
+                        <p class="text-zinc-400">
+                            @<%= user.username %>
+                        </p>
 
-    <!-- ✅ 1. Bio Section with Default Text Handling -->
-    <% if(user.bio && user.bio.trim() !== ""){ %>
+                        <!-- ✅ 1. Bio Section with Default Text Handling -->
+                        <% if(user.bio && user.bio.trim() !== ""){ %>
 
-    <p class="text-zinc-400 text-sm mt-2 text-center">
-        <%= user.bio %>
-    </p>
+                        <p class="text-zinc-400 text-sm mt-2 text-center">
+                            <%= user.bio %>
+                        </p>
 
-    <% } else { %>
+                        <% } else { %>
 
-    <p class="text-zinc-500 text-sm mt-2 italic text-center">
-        Add a bio to tell people about yourself.
-    </p>
+                        <p class="text-zinc-500 text-sm mt-2 italic text-center">
+                            Add a bio to tell people about yourself.
+                        </p>
 
-    <% } %>
+                        <% } %>
 
-    <!-- Upload Profile Photo -->
-    <form
-        action="/upload-profile"
-        method="post"
-        enctype="multipart/form-data"
-        class="mt-4 w-full">
+                        <!-- Upload Profile Photo -->
+                        <form
+                            action="/upload-profile"
+                            method="post"
+                            enctype="multipart/form-data"
+                            class="mt-4 w-full">
 
-        <input
-            type="file"
-            name="profilePic"
-            accept="image/*"
-            class="w-full text-sm text-zinc-300 mb-2">
+                            <input
+                                type="file"
+                                name="profilePic"
+                                accept="image/*"
+                                class="w-full text-sm text-zinc-300 mb-2">
 
-        <button
-            type="submit"
-            class="w-full bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-medium transition">
+                            <button
+                                type="submit"
+                                class="w-full bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-medium transition">
 
-            📸 Upload Profile Photo
+                                📸 Upload Profile Photo
 
-        </button>
+                            </button>
 
-        <!-- ✅ 3. Edit Profile Button with block w-full mt-3 classes applied -->
-        <a
-            href="/edit-profile"
-            class="block w-full mt-3 text-center bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg font-semibold transition">
+                            <!-- ✅ 3. Edit Profile Button with block w-full mt-3 classes applied -->
+                            <a
+                                href="/edit-profile"
+                                class="block w-full mt-3 text-center bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg font-semibold transition">
 
-            ✏️ Edit Profile
+                                ✏️ Edit Profile
 
-        </a>
+                            </a>
 
-    </form>
+                        </form>
 
-</div>
+                    </div>
 
                 </div>
 
@@ -162,7 +158,8 @@
                     ✍️ Share Your Experience
                 </h3>
 
-                <form action="/post" method="post">
+                <!-- ✅ Modified to include multipart encoding signature -->
+                <form action="/post" method="post" enctype="multipart/form-data">
                     <label class="block text-zinc-300 font-medium mb-2">
                         📂 Choose a category for your post
                     </label>
@@ -189,6 +186,14 @@
                         id="content"
                         placeholder="What's on your mind today?"
                         class="w-full h-40 bg-zinc-950 border border-zinc-800 rounded-xl p-4 resize-none focus:outline-none focus:border-blue-500"></textarea>
+
+                    <!-- ✅ Image upload node attached directly beneath content textarea -->
+                    <div class="mt-4">
+                        <label class="block mb-2 text-zinc-300 font-medium">
+                            📷 Upload Image (Optional)
+                        </label>
+                        <input type="file" name="postImage" accept="image/*" class="w-full text-zinc-300">
+                    </div>
 
                     <button
                         class="mt-4 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-semibold transition">
@@ -229,6 +234,13 @@
                     </span>
 
                 </div>
+
+                <!-- ✅ Render optional post image before content block -->
+                <% if(post.image){ %>
+                <img
+                    src="<%= post.image %>"
+                    class="w-full h-60 object-cover rounded-xl mb-3">
+                <% } %>
 
                 <p class="text-zinc-200 leading-relaxed max-h-24 overflow-hidden">
                     <%= post.content %>
@@ -310,6 +322,13 @@
         </div>
 
     </div>
+
+    <footer class="text-center text-zinc-500 py-6 border-t border-zinc-800 mt-12">
+         ExperienceHub 2026 • Crafted by
+        <span class="text-blue-400 font-semibold">
+            Shreyansh Yadav
+        </span>
+    </footer>
 
 </body>
 </html>
