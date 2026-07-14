@@ -50,8 +50,40 @@ const postStorage = new CloudinaryStorage({
 const postUpload = multer({
     storage: postStorage
 });
-app.get("/", function(req, res) {
-    res.render("index");
+app.get("/", async function (req, res) {
+
+    const latestPosts = await postModel
+        .find()
+        .populate("user")
+        .sort({ createdAt: -1 })
+        .limit(3);
+
+    let lovedPosts = await postModel
+        .find()
+        .populate("user");
+
+    lovedPosts.sort((a, b) => b.likes.length - a.likes.length);
+
+    const totalUsers = await userModel.countDocuments();
+
+    const totalPosts = await postModel.countDocuments();
+
+    const allPosts = await postModel.find();
+
+    let totalLikes = 0;
+
+    allPosts.forEach(post => {
+        totalLikes += post.likes.length;
+    });
+
+    res.render("home", {
+        latestPosts,
+        lovedPosts: lovedPosts.slice(0, 3),
+        totalUsers,
+        totalPosts,
+        totalLikes
+    });
+
 });
 app.post("/upload", function(req, res) {
     res.render("index");
@@ -467,6 +499,21 @@ app.get("/feed", isLoggedIn, async function(req, res){
     res.render("feed", {
         posts,
         currentUser
+    });
+
+});
+app.get("/story/:id", async function(req, res){
+
+    const post = await postModel
+        .findById(req.params.id)
+        .populate("user");
+
+    if(!post){
+        return res.redirect("/");
+    }
+
+    res.render("story",{
+        post
     });
 
 });
