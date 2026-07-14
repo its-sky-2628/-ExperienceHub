@@ -73,20 +73,27 @@
                 <div class="flex justify-between items-start mb-4">
 
                     <div>
-                        <!-- Profile Pic Logic Fix -->
+                        <!-- Profile Pic Logic (Clickable Profile Redirection Added) -->
                         <% if(post.user.profilePic && post.user.profilePic.startsWith('http')){ %>
-                            <img
-                                src="<%= post.user.profilePic %>"
-                                class="w-12 h-12 rounded-full object-cover mb-2 border border-zinc-700">
+                            <a href="/user/<%= post.user._id %>">
+                                <img
+                                    src="<%= post.user.profilePic %>"
+                                    class="w-12 h-12 rounded-full object-cover mb-2 border border-zinc-700 hover:scale-105 transition">
+                            </a>
                         <% } else { %>
-                            <div class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center text-white font-bold mb-2">
-                                <%= post.user.username.charAt(0).toUpperCase() %>
-                            </div>
+                            <a href="/user/<%= post.user._id %>">
+                                <div class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center text-white font-bold mb-2 hover:bg-zinc-700 transition">
+                                    <%= post.user.username.charAt(0).toUpperCase() %>
+                                </div>
+                            </a>
                         <% } %>            
                         
-                        <h3 class="text-blue-400 text-xl font-bold">
+                        <!-- Clickable Username -->
+                        <a
+                           href="/user/<%= post.user._id %>"
+                           class="text-blue-400 text-xl font-bold hover:underline block">
                             @<%= post.user.username %>
-                        </h3>
+                        </a>
 
                         <span class="inline-block bg-zinc-800 text-yellow-400 text-xs px-3 py-1 rounded-full border border-zinc-700 mt-2">
                             <%= post.category || "🌱 Life Experience" %>
@@ -95,6 +102,13 @@
                         <p class="text-zinc-500 text-xs mt-2">
                             Shared an experience
                         </p>
+
+                        <!-- ✅ Post Timestamp Added Below Shared Status -->
+                        <% if(post.date) { %>
+                        <p class="text-zinc-500 text-xs mt-1">
+                            🕒 <%= post.date.toDateString() %>
+                        </p>
+                        <% } %>
                     </div>
 
                     <!-- Follow/Unfollow Section -->
@@ -115,7 +129,7 @@
                 <!-- Post Content -->
                 <div class="border-l-4 border-blue-500 pl-4 mb-5">
                     
-                    <!-- ✅ Post Image renders directly above text context if present -->
+                    <!-- Post Image renders directly above text context if present -->
                     <% if(post.image){ %>
                     <img
                         src="<%= post.image %>"
@@ -138,11 +152,12 @@
 
                     </a>
 
+                    <!-- ✅ 1. Optimized Save Logic with dynamic Array.some() -->
                     <a
                         href="/save/<%= post._id %>"
                         class="text-yellow-400 hover:text-yellow-300 font-medium">
 
-                        <% if(currentUser.savedPosts && currentUser.savedPosts.map(id => id.toString()).includes(post._id.toString())){ %>
+                        <% if(currentUser.savedPosts && currentUser.savedPosts.some(saved => saved._id.toString() === post._id.toString())){ %>
 
                             🔖 Saved
 

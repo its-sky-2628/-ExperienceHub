@@ -433,6 +433,25 @@ app.post("/upload-profile",isLoggedIn,profileUpload.single("profilePic"),async f
 
     }
 );
+app.get("/user/:id", isLoggedIn, async function(req,res){
+
+    let profileUser = await userModel.findById(req.params.id)
+        .populate("posts")
+        .populate("followers")
+        .populate("following");
+
+    if(!profileUser){
+        return res.send("User not found");
+    }
+
+    let currentUser = await userModel.findById(req.user.userid);
+
+    res.render("user-profile",{
+        profileUser,
+        currentUser
+    });
+
+});
 app.listen(process.env.PORT || 3000, function() {
     console.log("Server running");
 });

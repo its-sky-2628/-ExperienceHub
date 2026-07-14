@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title><%= profileUser.username %></title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-zinc-950 text-white">
+
+<div class="max-w-5xl mx-auto py-10">
+
+<a href="/feed"
+class="text-blue-400">
+← Back
+</a>
+
+<div class="bg-zinc-900 rounded-3xl p-8 mt-6">
+
+<div class="flex items-center gap-6">
+
+<% if(profileUser.profilePic){ %>
+
+<img
+src="<%= profileUser.profilePic %>"
+class="w-28 h-28 rounded-full object-cover">
+
+<% } else { %>
+
+<div class="w-28 h-28 rounded-full bg-blue-600 flex justify-center items-center text-5xl">
+
+<%= profileUser.name.charAt(0).toUpperCase() %>
+
+</div>
+
+<% } %>
+
+<div>
+
+<h1 class="text-4xl font-bold">
+
+<%= profileUser.name %>
+
+</h1>
+
+<p class="text-blue-400">
+
+@<%= profileUser.username %>
+
+</p>
+
+<p class="text-zinc-400 mt-3">
+
+<%= profileUser.bio %>
+
+</p>
+
+<div class="flex gap-8 mt-5">
+
+<div>
+
+<h2 class="text-2xl font-bold">
+
+<%= profileUser.posts.length %>
+
+</h2>
+
+Posts
+
+</div>
+
+<div>
+
+<h2 class="text-2xl font-bold">
+
+<%= profileUser.followers.length %>
+
+</h2>
+
+Followers
+
+</div>
+<% if(profileUser._id.toString() !== currentUser._id.toString()){ %>
+
+<% if(currentUser.following.map(id=>id.toString()).includes(profileUser._id.toString())){ %>
+
+<a
+href="/follow/<%= profileUser._id %>"
+class="inline-block mt-6 bg-red-600 hover:bg-red-700 px-6 py-3 rounded-xl">
+
+Unfollow
+
+</a>
+
+<% } else { %>
+
+<a
+href="/follow/<%= profileUser._id %>"
+class="inline-block mt-6 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl">
+
+Follow
+
+</a>
+
+<% } %>
+
+<% } %>
+
+<div>
+
+<h2 class="text-2xl font-bold">
+
+<%= profileUser.following.length %>
+
+</h2>
+
+Following
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<h2 class="text-3xl font-bold mt-10 mb-6">
+
+Posts
+
+</h2>
+
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+<% profileUser.posts.reverse().forEach(function(post){ %>
+
+<div class="bg-zinc-900 rounded-2xl p-5">
+
+<% if(post.image){ %>
+
+<img
+src="<%= post.image %>"
+class="rounded-xl mb-4 w-full h-60 object-cover">
+
+<% } %>
+
+<p>
+
+<%= post.content %>
+
+</p>
+
+<div class="mt-4 text-red-400">
+
+❤️ <%= post.likes.length %>
+
+</div>
+
+</div>
+
+<% }) %>
+
+</div>
+
+</div>
+
+</body>
+</html>
