@@ -6,66 +6,34 @@
     <title>ExperienceHub Feed</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body class="bg-zinc-950 text-white min-h-screen">
 
     <div class="max-w-6xl mx-auto px-4 py-8">
 
         <!-- Heading -->
         <div class="text-center mb-10 border-b border-zinc-800 pb-8">
-            <h1 class="text-5xl font-bold text-white">
-                ExperienceHub
-            </h1>
-            <p class="text-zinc-400 mt-3 text-lg">
-                Discover stories, experiences and ideas from people around the world.
-            </p>
+            <h1 class="text-5xl font-bold text-white">ExperienceHub</h1>
+            <p class="text-zinc-400 mt-3 text-lg">Discover stories, experiences and ideas from people around the world.</p>
         </div>
         
-        <!-- Navigation bar with new Notification and Profile controllers -->
+        <!-- Navigation bar -->
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
-
-            <form
-                action="/search"
-                method="get"
-                class="flex gap-2 w-full sm:w-auto">
-
-                <input
-                    type="text"
-                    name="search"
-                    placeholder="🔍 Search users..."
-                    class="bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2 w-full sm:w-72 focus:outline-none focus:border-blue-500">
-
-                <button
-                    class="bg-blue-600 hover:bg-blue-700 px-4 rounded-xl font-medium transition">
-
-                    Search
-
-                </button>
-
+            <form action="/search" method="get" class="flex gap-2 w-full sm:w-auto">
+                <input type="text" name="search" placeholder="🔍 Search users..." class="bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2 w-full sm:w-72 focus:outline-none focus:border-blue-500">
+                <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-xl font-medium transition">Search</button>
             </form>
 
-            <!-- Action buttons container (Notifications + Profile) -->
             <div class="flex gap-3 w-full sm:w-auto justify-end">
-                
-                <!-- ✅ STEP 8: Notifications Button Added and Aligned perfectly -->
-                <a
-                    href="/notifications"
-                    class="bg-yellow-500 hover:bg-yellow-600 text-black px-5 py-2 rounded-xl font-medium transition flex items-center gap-2 shadow-lg hover:shadow-yellow-500/20">
-
-                    🔔 Notifications
-
-                </a>
-
-                <a
-                    href="/profile"
-                    class="bg-zinc-900 border border-zinc-700 px-5 py-2 rounded-xl hover:bg-zinc-800 transition flex items-center gap-2">
-
-                    👤 Profile
-
-                </a>
-
+                <a href="/notifications" class="bg-yellow-500 hover:bg-yellow-600 text-black px-5 py-2 rounded-xl font-medium transition flex items-center gap-2 shadow-lg">🔔 Notifications</a>
+                <a href="/profile" class="bg-zinc-900 border border-zinc-700 px-5 py-2 rounded-xl hover:bg-zinc-800 transition flex items-center gap-2">👤 Profile</a>
             </div>
+        </div>
 
+        <!-- ✅ Problem 1 Fixed: Feed Filters Added Right Above Category Filters -->
+        <div class="flex justify-center gap-3 flex-wrap mb-6">
+            <a href="/feed?filter=trending" class="bg-orange-600 hover:bg-orange-700 px-5 py-2 rounded-full transition">🔥 Trending</a>
+            <a href="/feed?filter=latest" class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-full transition">🆕 Latest</a>
+            <a href="/feed?filter=following" class="bg-green-600 hover:bg-green-700 px-5 py-2 rounded-full transition">❤️ Following</a>
         </div>
 
         <!-- Category Filters -->
@@ -80,130 +48,62 @@
 
         <!-- Feed Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
             <% posts.forEach(function(post){ %>
-
-            <!-- Card upgraded with modern Gradient Border, Deep Shadows, and Hover Translate -->
-            <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-blue-500/20 rounded-3xl p-6 shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-2 hover:border-blue-500 transition-all duration-300">
-
+            <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-blue-500/20 rounded-3xl p-6 shadow-2xl hover:-translate-y-2 hover:border-blue-500 transition-all duration-300">
+                
                 <!-- User Header -->
                 <div class="flex justify-between items-center mb-5">
-
-                    <!-- Left Side -->
                     <div class="flex items-center gap-4">
-
                         <% if(post.user.profilePic && post.user.profilePic.startsWith('http')){ %>
-
                             <a href="/user/<%= post.user._id %>">
-                                <!-- Profile Photo Ring and Hover Scale effects -->
-                                <img
-                                    src="<%= post.user.profilePic %>"
-                                    class="w-16 h-16 rounded-full object-cover border-2 border-blue-500 ring-2 ring-blue-500/30 hover:scale-110 transition duration-300">
-
+                                <img src="<%= post.user.profilePic %>" class="w-16 h-16 rounded-full object-cover border-2 border-blue-500">
                             </a>
-
                         <% } else { %>
-
                             <a href="/user/<%= post.user._id %>">
-
-                                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-xl font-bold border-2 border-blue-500 ring-2 ring-blue-500/30 hover:scale-110 transition duration-300">
-
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-xl font-bold border-2 border-blue-500">
                                     <%= post.user.username.charAt(0).toUpperCase() %>
-
                                 </div>
-
                             </a>
-
                         <% } %>
 
                         <div>
-
-                            <a
-                                href="/user/<%= post.user._id %>"
-                                class="text-blue-400 font-bold text-lg hover:text-blue-300 transition">
-
-                                @<%= post.user.username %>
-
-                            </a>
-
+                            <a href="/user/<%= post.user._id %>" class="text-blue-400 font-bold text-lg hover:text-blue-300 transition">@<%= post.user.username %></a>
                             <div class="flex flex-wrap items-center gap-2 mt-1">
-
-                                <span class="text-xs bg-zinc-800 border border-zinc-700 text-yellow-400 px-2 py-1 rounded-full">
-
-                                    <%= post.category || "🌱 Life Experience" %>
-
-                                </span>
-
-                                <span class="text-xs text-zinc-500">
-
-                                    • <%= post.date ? post.date.toLocaleDateString() : new Date().toLocaleDateString() %>
-
-                                </span>
-
+                                <span class="text-xs bg-zinc-800 border border-zinc-700 text-yellow-400 px-2 py-1 rounded-full"><%= post.category || "🌱 Life Experience" %></span>
+                                <!-- ✅ Problem 3 Fixed: Fallback to createdAt if post.date doesn't exist -->
+                                <span class="text-xs text-zinc-500">• <%= post.createdAt ? post.createdAt.toLocaleDateString() : (post.date ? post.date.toLocaleDateString() : new Date().toLocaleDateString()) %></span>
                             </div>
-
                         </div>
-
                     </div>
 
-                    <!-- Right Side -->
                     <% if(post.user._id.toString() !== currentUser._id.toString()) { %>
-
                         <% if(currentUser.following.map(id=>id.toString()).includes(post.user._id.toString())){ %>
-
-                            <!-- Modern Red-to-Pink Unfollow Gradient Button -->
-                            <a
-                                href="/follow/<%= post.user._id %>"
-                                class="bg-gradient-to-r from-red-600 to-pink-500 hover:from-red-500 hover:to-pink-400 text-white px-6 py-2 rounded-full font-semibold shadow-lg transition-all duration-300 text-sm">
-
-                                Unfollow
-
-                            </a>
-
+                            <a href="/follow/<%= post.user._id %>" class="bg-gradient-to-r from-red-600 to-pink-500 text-white px-6 py-2 rounded-full font-semibold text-sm">Unfollow</a>
                         <% } else { %>
-
-                            <!-- Modern Blue-to-Cyan Follow Gradient Button -->
-                            <a
-                                href="/follow/<%= post.user._id %>"
-                                class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-blue-500/40 transition-all duration-300 text-sm">
-
-                                Follow
-
-                            </a>
-
+                            <a href="/follow/<%= post.user._id %>" class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-6 py-2 rounded-full font-semibold text-sm">Follow</a>
                         <% } %>
-
                     <% } %>
-
                 </div>
 
                 <!-- Post Content -->
                 <div class="border-l-4 border-blue-500 pl-4 mb-5">
-                    
-                    <!-- Post Image renders directly above text context if present -->
                     <% if(post.image){ %>
-                    <img
-                        src="<%= post.image %>"
-                        class="w-full h-72 object-cover rounded-2xl hover:scale-[1.02] transition duration-300 shadow-lg mb-4">
+                        <img src="<%= post.image %>" class="w-full h-72 object-cover rounded-2xl mb-4">
                     <% } %>
-
-                    <p class="text-zinc-200 text-lg leading-relaxed whitespace-pre-line break-words">
-                        <%= post.content %>
-                    </p>
+                    <p class="text-zinc-200 text-lg leading-relaxed whitespace-pre-line break-words"><%= post.content %></p>
                 </div>
 
                 <!-- Likes + Save -->
-                <!-- Interaction row replaced with clean and vibrant action badges -->
                 <div class="flex justify-between items-center mb-5">
-
                     <a href="/like/<%= post._id %>">
-                        <div class="bg-zinc-800 hover:bg-red-600 px-4 py-2 rounded-full transition font-medium text-sm flex items-center gap-1.5 text-red-400 hover:text-white">
+                        <!-- ✅ Problem 5 Fixed: hover:bg-zinc-700 instead of red-600 -->
+                        <div class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-full transition font-medium text-sm flex items-center gap-1.5 text-red-400">
                             ❤️ <span><%= post.likes.length %> Likes</span>
                         </div>
                     </a>
 
                     <a href="/save/<%= post._id %>">
-                        <div class="bg-zinc-800 hover:bg-yellow-500 hover:text-black px-4 py-2 rounded-full transition font-medium text-sm flex items-center gap-1.5 text-yellow-400">
+                        <div class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-full transition font-medium text-sm flex items-center gap-1.5 text-yellow-400">
                             <% if(currentUser.savedPosts && currentUser.savedPosts.some(saved => saved._id.toString() === post._id.toString())){ %>
                                 🔖 <span>Saved</span>
                             <% } else { %>
@@ -211,15 +111,12 @@
                             <% } %>
                         </div>
                     </a>
-
                 </div>
 
                 <!-- Comment Form -->
                 <form action="/comment/<%= post._id %>" method="post">
                     <input type="text" name="comment" placeholder="Write a comment..." required class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-white focus:outline-none focus:border-zinc-600">
-                    <button type="submit" class="mt-3 bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl font-medium transition">
-                        Comment
-                    </button>
+                    <button type="submit" class="mt-3 bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl font-medium transition">Comment</button>
                 </form>
 
                 <!-- Comments -->
@@ -228,18 +125,14 @@
                     <h4 class="text-zinc-500 text-sm mb-3">Comments</h4>
                     <% post.comments.forEach(function(comment){ %>
                     <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3 mb-3">
-                        <p class="text-zinc-300 text-sm leading-6">
-                            💬 <%= comment.text %>
-                        </p>
+                        <p class="text-zinc-300 text-sm leading-6">💬 <%= comment.text %></p>
                     </div>
                     <% }) %>
                 </div>
                 <% } %>
 
             </div>
-
             <% }) %>
-
         </div>
     </div>
 

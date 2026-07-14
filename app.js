@@ -120,7 +120,7 @@ app.get("/like/:id", isLoggedIn, async function(req, res) {
 
 }
 
-    res.redirect("/profile");
+    res.redirect("back");
 });
 app.get("/edit/:id", isLoggedIn, async function(req, res) {
 
