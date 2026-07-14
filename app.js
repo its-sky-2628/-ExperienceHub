@@ -124,7 +124,7 @@ app.get("/like/:id", isLoggedIn, async function(req, res) {
 });
 function isAdmin(req,res,next){
 
-    if(req.user.email !== "shreyanshyadav9672@gmail.com"){
+    if(req.user.email !== "shreyanshyadav966772@gmail.com"){
         return res.send("Access Denied");
     }
 
