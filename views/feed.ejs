@@ -70,61 +70,96 @@
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-lg hover:border-zinc-700 transition">
 
                 <!-- User Header -->
-                <div class="flex justify-between items-start mb-4">
+                 <!-- User Header -->
+<div class="flex justify-between items-center mb-5">
 
-                    <div>
-                        <!-- Profile Pic Logic (Clickable Profile Redirection Added) -->
-                        <% if(post.user.profilePic && post.user.profilePic.startsWith('http')){ %>
-                            <a href="/user/<%= post.user._id %>">
-                                <img
-                                    src="<%= post.user.profilePic %>"
-                                    class="w-12 h-12 rounded-full object-cover mb-2 border border-zinc-700 hover:scale-105 transition">
-                            </a>
-                        <% } else { %>
-                            <a href="/user/<%= post.user._id %>">
-                                <div class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center text-white font-bold mb-2 hover:bg-zinc-700 transition">
-                                    <%= post.user.username.charAt(0).toUpperCase() %>
-                                </div>
-                            </a>
-                        <% } %>            
-                        
-                        <!-- Clickable Username -->
-                        <a
-                           href="/user/<%= post.user._id %>"
-                           class="text-blue-400 text-xl font-bold hover:underline block">
-                            @<%= post.user.username %>
-                        </a>
+    <!-- Left Side -->
+    <div class="flex items-center gap-4">
 
-                        <span class="inline-block bg-zinc-800 text-yellow-400 text-xs px-3 py-1 rounded-full border border-zinc-700 mt-2">
-                            <%= post.category || "🌱 Life Experience" %>
-                        </span>
+        <% if(post.user.profilePic && post.user.profilePic.startsWith('http')){ %>
 
-                        <p class="text-zinc-500 text-xs mt-2">
-                            Shared an experience
-                        </p>
+            <a href="/user/<%= post.user._id %>">
 
-                        <!-- ✅ Post Timestamp Added Below Shared Status -->
-                        <% if(post.date) { %>
-                        <p class="text-zinc-500 text-xs mt-1">
-                            🕒 <%= post.date.toDateString() %>
-                        </p>
-                        <% } %>
-                    </div>
+                <img
+                    src="<%= post.user.profilePic %>"
+                    class="w-14 h-14 rounded-full object-cover border-2 border-blue-500 hover:scale-105 transition">
 
-                    <!-- Follow/Unfollow Section -->
-                    <% if(post.user._id.toString() !== currentUser._id.toString()) { %>
-                        <% if(currentUser.following.map(id => id.toString()).includes(post.user._id.toString())) { %>
-                            <a href="/follow/<%= post.user._id %>" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition">
-                                Unfollow
-                            </a>
-                        <% } else { %>
-                            <a href="/follow/<%= post.user._id %>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition">
-                                Follow
-                            </a>
-                        <% } %>
-                    <% } %>
+            </a>
+
+        <% } else { %>
+
+            <a href="/user/<%= post.user._id %>">
+
+                <div class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-xl font-bold hover:scale-105 transition">
+
+                    <%= post.user.username.charAt(0).toUpperCase() %>
 
                 </div>
+
+            </a>
+
+        <% } %>
+
+        <div>
+
+            <a
+                href="/user/<%= post.user._id %>"
+                class="text-blue-400 font-bold text-lg hover:text-blue-300 transition">
+
+                @<%= post.user.username %>
+
+            </a>
+
+            <div class="flex items-center gap-2 mt-1">
+
+                <span class="text-xs bg-zinc-800 border border-zinc-700 text-yellow-400 px-2 py-1 rounded-full">
+
+                    <%= post.category %>
+
+                </span>
+
+                <span class="text-xs text-zinc-500">
+
+                    • <%= post.date.toLocaleDateString() %>
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Side -->
+    <% if(post.user._id.toString() !== currentUser._id.toString()) { %>
+
+        <% if(currentUser.following.map(id=>id.toString()).includes(post.user._id.toString())){ %>
+
+            <a
+                href="/follow/<%= post.user._id %>"
+                class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition shadow">
+
+                Unfollow
+
+            </a>
+
+        <% } else { %>
+
+            <a
+                href="/follow/<%= post.user._id %>"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition shadow">
+
+                Follow
+
+            </a>
+
+        <% } %>
+
+    <% } %>
+
+</div>
+
+
 
                 <!-- Post Content -->
                 <div class="border-l-4 border-blue-500 pl-4 mb-5">
