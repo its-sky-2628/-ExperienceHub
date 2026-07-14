@@ -1,4 +1,4 @@
-x<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,144 +7,135 @@ x<!DOCTYPE html>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Superhero / Gaming Glow Mode Core Elements */
         @keyframes floatEffect {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(2deg); }
-        }
-        @keyframes subtlePulse {
-            0%, 100% { box-shadow: 0 0 15px rgba(59, 130, 246, 0.4), inset 0 0 15px rgba(59, 130, 246, 0.2); }
-            50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.6), inset 0 0 25px rgba(239, 68, 68, 0.3); }
+            50% { transform: translateY(-10px) rotate(1deg); }
         }
         .hero-float {
             animation: floatEffect 4s infinite ease-in-out;
         }
-        .card-pulse {
-            animation: subtlePulse 4s infinite ease-in-out;
-        }
-        .custom-focus:focus {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-            border-color: #3b82f6;
-            background-color: rgba(9, 9, 11, 0.9);
-            transform: scale(1.01);
-        }
     </style>
 </head>
 
-<body class="bg-zinc-950 text-white min-h-screen selection:bg-red-600 selection:text-white overflow-x-hidden">
+<!-- Background color specified: bg-zinc-950 -->
+<body class="bg-zinc-950 text-white min-h-screen selection:bg-blue-600 selection:text-white overflow-x-hidden relative">
 
-<div class="max-w-6xl mx-auto py-12 px-6 relative">
+    <!-- ✅ 8. Background Glow Stack (Subtle premium effect) -->
+    <div class="fixed top-0 left-0 w-96 h-96 bg-blue-600/10 blur-[140px] rounded-full pointer-events-none"></div>
+    <div class="fixed bottom-0 right-0 w-96 h-96 bg-purple-600/10 blur-[140px] rounded-full pointer-events-none"></div>
 
-    <!-- Ambient Neon Lights -->
-    <div class="absolute top-1/4 -left-20 w-72 h-72 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-    <div class="absolute bottom-1/4 -right-20 w-72 h-72 bg-red-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="max-w-6xl mx-auto py-12 px-6 relative z-10">
 
-    <!-- NAVIGATION HEADER -->
-    <div class="flex justify-between items-center mb-10 pb-6 border-b border-zinc-900 relative z-10">
-        <a href="/profile" class="group flex items-center gap-2 text-zinc-400 hover:text-white transition-all duration-300 font-medium">
-            <span class="inline-block transform group-hover:-translate-x-2 transition-transform duration-300">⚡</span> Back to Feed / Profile
-        </a>
-        <span class="text-xs bg-red-500/10 text-red-400 font-mono px-3 py-1 rounded-full border border-red-500/20 tracking-wider animate-pulse">
-            <i class="fa-solid Nav-Icon fa-circle-dot mr-1 text-[10px]"></i> Live Editing Setup
-        </span>
-    </div>
+        <!-- Header Back Navigation Link -->
+        <div class="flex justify-between items-center mb-10 pb-6 border-b border-zinc-800/60">
+            <a href="/profile" class="group flex items-center gap-2 text-zinc-400 hover:text-white transition-all duration-300 font-medium">
+                <span class="inline-block transform group-hover:-translate-x-1 transition-transform">⬅️</span> Back to Profile
+            </a>
+            <span class="text-xs bg-zinc-900 border border-zinc-800 text-zinc-400 font-mono px-3 py-1 rounded-full uppercase tracking-wider">
+                Account Settings
+            </span>
+        </div>
 
-    <!-- MAIN GRID SECTION -->
-    <div class="grid lg:grid-cols-12 gap-10 items-center relative z-10">
+        <!-- ✅ 1. Heading Component with Accent Gradient styling applied -->
+        <h1 class="text-5xl font-extrabold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent text-center mb-16 tracking-tight">
+            ✏️ Edit Profile
+        </h1>
 
-        <!-- LEFT DISPLAY SIDE (The Ultimate Cartoon Preview Section) -->
-        <div class="lg:col-span-5 flex flex-col items-center">
-            
-            <!-- Character Layer Box -->
-            <div class="w-full max-w-sm bg-gradient-to-b from-zinc-900 to-zinc-950 rounded-3xl border border-zinc-800/80 p-6 text-center card-pulse relative group">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+
+            <!-- ✅ 2. Left Preview Card Panel Context -->
+            <div class="lg:col-span-5 bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-800 rounded-3xl p-8 flex flex-col items-center text-center relative group hover:scale-[1.02] transition-all duration-300 shadow-xl">
                 
-                <!-- CARTOON GIF / AVATAR POPPER (Spider-Man Interactive Element) -->
-                <div class="absolute -top-24 left-1/2 transform -translate-x-1/2 w-32 h-32 hero-float pointer-events-none drop-shadow-[0_10px_15px_rgba(239,68,68,0.5)]">
-                    <img src="https://media.giphy.com/media/1qjCXhkDsxbHs4IxV8/giphy.gif" alt="Spidey Cartoon Character" class="w-full h-full object-contain">
+                <!-- Floating Spider-Man Graphic Aspect Asset Anchor -->
+                <div class="absolute -top-20 left-1/2 transform -translate-x-1/2 w-28 h-28 hero-float pointer-events-none drop-shadow-[0_8px_12px_rgba(59,130,246,0.3)]">
+                    <img src="https://media.giphy.com/media/1qjCXhkDsxbHs4IxV8/giphy.gif" alt="Spidey Hero" class="w-full h-full object-contain">
                 </div>
 
-                <!-- Custom Avatar Frame Container -->
-                <div class="mt-12 mb-6 relative inline-block">
+                <!-- Profile Pic Frame Area Wrapper -->
+                <div class="mt-10 mb-6 relative inline-block">
+                    <!-- ✅ 3. Profile Image Adaptive Element with Blue Glow Shadow Matrix -->
                     <% if(user.profilePic && user.profilePic.trim() !== ""){ %>
-                        <img src="<%= user.profilePic %>" class="w-28 h-28 rounded-2xl object-cover mx-auto border-2 border-blue-500 ring-4 ring-zinc-900 shadow-2xl transition-transform duration-500 group-hover:scale-105">
+                        <img 
+                            src="<%= user.profilePic %>" 
+                            class="w-32 h-32 rounded-full object-cover border-4 border-blue-500 shadow-[0_0_35px_rgba(59,130,246,0.4)]">
                     <% } else { %>
-                        <div class="w-28 h-28 rounded-2xl bg-gradient-to-tr from-red-600 via-blue-600 to-indigo-700 mx-auto flex items-center justify-center text-4xl font-black border-2 border-white/20 ring-4 ring-zinc-900 shadow-2xl">
+                        <div class="w-32 h-32 rounded-full bg-gradient-to-tr from-blue-600 to-purple-600 flex justify-center items-center text-5xl font-black border-4 border-blue-500 shadow-[0_0_35px_rgba(59,130,246,0.4)]">
                             <%= user.name.charAt(0).toUpperCase() %>
                         </div>
                     <% } %>
-                    <div class="absolute -bottom-2 -right-2 bg-green-500 w-5 h-5 rounded-full border-4 border-zinc-900"></div>
+                    <div class="absolute bottom-1 right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-zinc-900 animate-pulse"></div>
                 </div>
 
-                <!-- Bio / Handle Data Card Stack -->
-                <h2 class="text-2xl font-black tracking-tight text-zinc-100 group-hover:text-blue-400 transition-colors duration-300">
+                <!-- Text metadata component structures -->
+                <h2 class="text-2xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors">
                     <%= user.name %>
                 </h2>
-                <p class="text-red-400 font-mono text-sm mt-1 font-semibold">@<%= user.username %></p>
+                <p class="text-purple-400 font-mono text-sm mt-1">@<%= user.username %></p>
                 
-                <div class="h-[1px] bg-gradient-to-r from-transparent via-zinc-800 to-transparent my-4"></div>
+                <div class="w-full h-[1px] bg-zinc-800 my-5"></div>
                 
-                <p class="text-zinc-400 text-sm leading-relaxed italic px-2 bg-zinc-950/40 py-3 rounded-xl border border-zinc-900">
-                    "<%= (user.bio && user.bio.trim() !== '') ? user.bio : 'Web-slinging through coding platforms! Update your bio now.' %>"
+                <p class="text-zinc-400 text-sm leading-relaxed italic px-4 py-3 bg-zinc-950/40 rounded-xl border border-zinc-900 w-full min-h-[44px]">
+                    "<%= (user.bio && user.bio.trim() !== '') ? user.bio : 'No bio available yet.' %>"
                 </p>
             </div>
-            
-        </div>
 
-        <!-- RIGHT DISPLAY SIDE (Action Forms Layout Elements) -->
-        <div class="lg:col-span-7 bg-zinc-900/40 backdrop-blur-xl rounded-3xl border border-zinc-800 p-8 relative overflow-hidden">
-            
-            <form action="/edit-profile" method="post" class="space-y-6">
+            <!-- ✅ 4. Right Form Control Interface Section Box -->
+            <div class="lg:col-span-7 bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 rounded-3xl p-8 shadow-xl">
+                
+                <form action="/edit-profile" method="post" class="space-y-6">
 
-                <!-- Input Item Field: Full Name -->
-                <div>
-                    <label class="block mb-2 text-sm font-bold text-zinc-400 flex items-center gap-2">
-                        <i class="fa-solid fa-signature text-blue-500"></i> Full Identity Name
-                    </label>
-                    <input
-                        type="text"
-                        name="name"
-                        value="<%= user.name %>"
-                        required
-                        class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-white focus:outline-none transition-all duration-300 custom-focus">
-                </div>
+                    <!-- Field Input Component Instance Name -->
+                    <div>
+                        <!-- ✅ 7. Label Elements Dynamic Styling Interface -->
+                        <label class="block text-zinc-300 font-semibold mb-2">
+                            <i class="fa-solid fa-user text-blue-400 mr-2 text-sm"></i>Full Name
+                        </label>
+                        <!-- ✅ 5. Adaptive Responsive Form Text Controls Configured with Blue Focus Glow -->
+                        <input
+                            type="text"
+                            name="name"
+                            value="<%= user.name %>"
+                            required
+                            class="w-full bg-zinc-950 border border-zinc-700 rounded-xl p-4 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition-all">
+                    </div>
 
-                <!-- Input Item Field: Username -->
-                <div>
-                    <label class="block mb-2 text-sm font-bold text-zinc-400 flex items-center gap-2">
-                        <i class="fa-solid fa-at text-red-500"></i> Secret Handle / Username
-                    </label>
-                    <input
-                        type="text"
-                        name="username"
-                        value="<%= user.username %>"
-                        required
-                        class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-white focus:outline-none transition-all duration-300 custom-focus font-mono">
-                </div>
+                    <!-- Field Input Component Instance Handle -->
+                    <div>
+                        <label class="block text-zinc-300 font-semibold mb-2">
+                            <i class="fa-solid fa-at text-purple-400 mr-2 text-sm"></i>Username
+                        </label>
+                        <input
+                            type="text"
+                            name="username"
+                            value="<%= user.username %>"
+                            required
+                            class="w-full bg-zinc-950 border border-zinc-700 rounded-xl p-4 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition-all font-mono">
+                    </div>
 
-                <!-- Input Item Field: Bio Description -->
-                <div>
-                    <label class="block mb-2 text-sm font-bold text-zinc-400 flex items-center gap-2">
-                        <i class="fa-solid fa-scroll text-green-500"></i> Superhero Bio Logs
-                    </label>
-                    <textarea
-                        name="bio"
-                        rows="4"
-                        placeholder="Write down your legendary developer story..."
-                        class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-white focus:outline-none transition-all duration-300 custom-focus resize-none leading-relaxed"><%= user.bio %></textarea>
-                </div>
+                    <!-- Field Input Component Instance Biography Description text area container -->
+                    <div>
+                        <label class="block text-zinc-300 font-semibold mb-2">
+                            <i class="fa-solid fa-pen-nib text-cyan-400 mr-2 text-sm"></i>Bio Description
+                        </label>
+                        <textarea
+                            name="bio"
+                            rows="4"
+                            placeholder="Share your technical expertise or thoughts..."
+                            class="w-full bg-zinc-950 border border-zinc-700 rounded-xl p-4 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition-all resize-none leading-relaxed"><%= user.bio %></textarea>
+                    </div>
 
-                <!-- Ultimate Save Button with Internal Particle Spark Feel -->
-                <button type="submit" class="w-full bg-gradient-to-r from-red-600 via-purple-600 to-blue-600 hover:from-red-500 hover:to-blue-500 text-white py-4 rounded-xl text-lg font-black transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] active:scale-[0.98] flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-bolt animate-bounce"></i> SAVE PROFILE CHANGES
-                </button>
+                    <!-- ✅ 6. Premium Responsive Animated Gradient Submission Command Control Button UI Layer -->
+                    <button class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 font-bold text-lg transition-all hover:scale-[1.02] shadow-lg flex items-center justify-center gap-2">
+                        💾 Save Changes
+                    </button>
 
-            </form>
+                </form>
+
+            </div>
 
         </div>
 
     </div>
-
-</div>
 
 </body>
 </html>
