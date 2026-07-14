@@ -30,7 +30,11 @@ const UserSchema = mongoose.Schema({
     following: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
-    }]
+    }],
+    savedPosts: [{
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "post"
+    }],
 });
 
 module.exports = mongoose.model("user", UserSchema);

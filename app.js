@@ -109,6 +109,29 @@ app.get("/edit/:id", isLoggedIn, async function(req, res) {
 
     res.render("edit", { post });
 });
+app.get("/save/:id", isLoggedIn, async function(req,res){
+
+    let user = await userModel.findById(req.user.userid);
+
+    const saved = user.savedPosts.some(
+        id => id.toString() === req.params.id
+    );
+
+    if(saved){
+
+        user.savedPosts.pull(req.params.id);
+
+    }else{
+
+        user.savedPosts.push(req.params.id);
+
+    }
+
+    await user.save();
+
+    res.redirect("/feed");
+
+});
 
 app.post("/update/:id", isLoggedIn, async function(req, res) {
 
@@ -286,7 +309,9 @@ app.get("/feed", isLoggedIn, async function(req,res){
         console.log(post.user.username, "=>", post.user.profilePic);
     });
 
-    let currentUser = await userModel.findById(req.user.userid);
+    let currentUser = await userModel
+    .findById(req.user.userid)
+    .populate("savedPosts");
 
     res.render("feed",{
         posts,
@@ -301,6 +326,26 @@ app.get("/users", isLoggedIn, async function(req,res){
     });
 
     res.render("users",{users});
+});
+app.get("/search", isLoggedIn, async function(req,res){
+
+    let search = req.query.search || "";
+
+    let users = await userModel.find({
+        username: {
+            $regex: search,
+            $options: "i"
+        },
+        _id: {
+            $ne: req.user.userid
+        }
+    });
+
+    res.render("search",{
+        users,
+        search
+    });
+
 });
 app.get("/forgot-password", function(req,res){
     res.render("forgot-password");

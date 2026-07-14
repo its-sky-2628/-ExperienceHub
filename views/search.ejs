@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<title>Search Users</title>
+
+</head>
+
+<body class="bg-zinc-950 text-white">
+
+<div class="max-w-5xl mx-auto py-10">
+
+<h1 class="text-4xl font-bold mb-8">
+
+Search Results
+
+</h1>
+
+<form
+action="/search"
+method="get"
+class="mb-8 flex gap-2">
+
+<input
+
+type="text"
+
+name="search"
+
+value="<%= search %>"
+
+placeholder="Search..."
+
+class="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl p-3">
+
+<button
+
+class="bg-blue-600 px-6 rounded-xl">
+
+Search
+
+</button>
+
+</form>
+
+<% if(users.length==0){ %>
+
+<p class="text-zinc-400">
+
+No users found.
+
+</p>
+
+<% } %>
+
+<% users.forEach(function(user){ %>
+
+<div class="bg-zinc-900 rounded-2xl p-5 flex justify-between items-center mb-4">
+
+<div class="flex items-center gap-4">
+
+<% if(user.profilePic){ %>
+
+<img
+src="<%= user.profilePic %>"
+class="w-14 h-14 rounded-full object-cover">
+
+<% }else{ %>
+
+<div class="w-14 h-14 rounded-full bg-blue-600 flex justify-center items-center font-bold">
+
+<%= user.username.charAt(0).toUpperCase() %>
+
+</div>
+
+<% } %>
+
+<div>
+
+<h2 class="text-xl font-bold">
+
+<%= user.name %>
+
+</h2>
+
+<p class="text-zinc-400">
+
+@<%= user.username %>
+
+</p>
+
+</div>
+
+</div>
+
+<a
+
+href="/follow/<%= user._id %>"
+
+class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-xl">
+
+Follow
+
+</a>
+
+</div>
+
+<% }) %>
+
+</div>
+
+</body>
+
+</html>

@@ -20,6 +20,37 @@
                 Discover stories, experiences and ideas from people around the world.
             </p>
         </div>
+        <div class="flex justify-between items-center mb-8">
+
+    <form
+        action="/search"
+        method="get"
+        class="flex gap-2">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="🔍 Search users..."
+            class="bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2 w-72 focus:outline-none focus:border-blue-500">
+
+        <button
+            class="bg-blue-600 hover:bg-blue-700 px-4 rounded-xl">
+
+            Search
+
+        </button>
+
+    </form>
+
+    <a
+        href="/profile"
+        class="bg-zinc-900 border border-zinc-700 px-4 py-2 rounded-xl hover:bg-zinc-800">
+
+        👤 Profile
+
+    </a>
+
+</div>
 
         <!-- Category Filters -->
         <div class="flex flex-wrap justify-center gap-3 mb-10">
@@ -89,11 +120,34 @@
                 </div>
 
                 <!-- Likes -->
-                <div class="mb-5">
-                    <a href="/like/<%= post._id %>" class="text-red-400 hover:text-red-300 font-medium">
-                        ❤️ <%= post.likes.length %> Likes
-                    </a>
-                </div>
+                 <!-- Likes + Save -->
+<div class="flex justify-between items-center mb-5">
+
+    <a
+        href="/like/<%= post._id %>"
+        class="text-red-400 hover:text-red-300 font-medium">
+
+        ❤️ <%= post.likes.length %> Likes
+
+    </a>
+
+    <a
+        href="/save/<%= post._id %>"
+        class="text-yellow-400 hover:text-yellow-300 font-medium">
+
+        <% if(currentUser.savedPosts && currentUser.savedPosts.map(id => id.toString()).includes(post._id.toString())){ %>
+
+            🔖 Saved
+
+        <% } else { %>
+
+            📑 Save
+
+        <% } %>
+
+    </a>
+
+</div>
 
                 <!-- Comment Form -->
                 <form action="/comment/<%= post._id %>" method="post">
