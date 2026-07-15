@@ -1,48 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password - ExperienceHub</title>
 
-<title>Forgot Password</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.6s ease forwards;
+        }
 
+        /* 💡 लाइट बल्ब जैसा रेडियल ग्लो इफ़ेक्ट (शुरुआत में छुपा रहेगा) */
+        .bulb-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(37,99,235,0.4) 0%, rgba(124,58,237,0.1) 50%, rgba(9,9,11,0) 100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 0;
+        }
+
+        /* जब इस क्लास को JS से ऐड करेंगे तब ग्लो एक्टिव होगा */
+        .bulb-glow.active {
+            opacity: 1;
+        }
+    </style>
 </head>
 
-<body class="bg-zinc-950 flex justify-center items-center min-h-screen">
+<!-- 🔥 ID जोड़ दी है ताकि DOM से इसका बैकग्राउंड चेंज कर सकें -->
+<body id="bg-body" class="bg-gradient-to-br from-zinc-950 via-zinc-900 to-black min-h-screen flex items-center justify-center p-4 relative overflow-hidden transition-all duration-1000">
 
-<form
-action="/forgot"
-method="POST"
-class="bg-zinc-900 p-8 rounded-3xl w-96">
+    <!-- 💡 यह हमारा लाइट बल्ब ग्लो कंटेनर है -->
+    <div id="glow-effect" class="bulb-glow"></div>
 
-<h1 class="text-white text-3xl mb-6 font-bold">
+    <!-- 🔥 Form Card -->
+    <form
+        id="forgot-form"
+        action="/forgot"
+        method="POST"
+        class="bg-zinc-900/80 backdrop-blur-xl border border-zinc-700/60 rounded-3xl p-8 w-full max-w-[420px] shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 animate-fadeIn relative z-10"
+    >
+        <!-- Heading & Subtext -->
+        <h1 class="text-3xl font-bold text-center text-white tracking-tight">
+            Forgot Password?
+        </h1>
+        <p class="text-zinc-400 text-center text-sm mt-2">
+            Enter your registered email to receive a password reset link.
+        </p>
 
-Forgot Password
+        <!-- Input Field -->
+        <div class="mt-6">
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+                class="w-full bg-zinc-800/80 border border-zinc-700 rounded-xl p-3 text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition-all duration-300"
+            >
+        </div>
 
-</h1>
+        <!-- Submit Button -->
+        <button
+            type="submit"
+            class="w-full mt-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-white font-semibold py-3 rounded-xl shadow-lg shadow-blue-600/20"
+        >
+            Send Reset Link
+        </button>
 
-<input
+        <!-- Back to Login -->
+        <a 
+            href="/login" 
+            class="block text-center mt-5 text-sm text-zinc-400 hover:text-blue-400 transition duration-300"
+        >
+            ← Back to Login
+        </a>
+    </form>
 
-type="email"
+    <!-- ================= DOM JAVASCRIPT ================= -->
+    <script>
+        const form = document.getElementById('forgot-form');
+        const body = document.getElementById('bg-body');
+        const glow = document.getElementById('glow-effect');
 
-name="email"
+        form.addEventListener('submit', function(e) {
+            // 1. पूरे बॉडी का बैकग्राउंड कलर थोड़ा ब्राइट/ब्लूइश टोन में बदलेंगे
+            body.style.background = '#0a1931'; 
+            
+            // 2. लाइट बल्ब जैसा रेडियल ग्लो (Glow Effect) एक्टिव कर देंगे
+            glow.classList.add('active');
 
-placeholder="Enter your email"
-
-required
-
-class="w-full p-3 rounded-xl bg-zinc-800 text-white mb-6">
-
-<button
-
-class="w-full bg-blue-600 p-3 rounded-xl text-white">
-
-Send Reset Link
-
-</button>
-
-</form>
+            // 3. फॉर्म कार्ड पर भी थोड़ा ब्लू शैडो का तड़का मारेंगे
+            form.style.boxShadow = '0 25px 50px -12px rgba(37, 99, 235, 0.4)';
+            form.style.borderColor = 'rgba(59, 130, 246, 0.6)';
+            
+            // नोट: हमने e.preventDefault() नहीं लगाया है, इसलिए इफ़ेक्ट दिखने के तुरंत बाद फॉर्म नॉर्मली सबमिट हो जाएगा!
+        });
+    </script>
 
 </body>
-
 </html>
