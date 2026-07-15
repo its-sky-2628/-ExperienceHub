@@ -3,7 +3,9 @@ const notificationModel = require("./model/notification");
 const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const mongoose = require("mongoose");
-
+const crypto = require("crypto");
+const transporter = require("./config/mailer");
+require("dotenv").config();
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log("MongoDB Atlas Connected"))
 .catch(err => console.log(err));
@@ -94,6 +96,64 @@ app.post("/upload", function(req, res) {
 app.get("/test", function(req, res) {
     res.render("test");
 });
+app.get("/forgot",(req,res)=>{
+
+res.render("forgot");
+
+});
+app.post("/forgot",async(req,res){
+
+const user=await userModel.findOne({
+
+email:req.body.email
+
+});
+
+if(!user){
+
+return res.send("No account found.");
+
+}
+
+const token=crypto.randomBytes(32).toString("hex");
+
+user.resetToken=token;
+
+user.resetTokenExpire=Date.now()+1000*60*15;
+
+await user.save();
+
+const resetLink=`${process.env.BASE_URL}/reset/${token}`;
+
+await transporter.sendMail({
+
+from:process.env.EMAIL_USER,
+
+to:user.email,
+
+subject:"Reset Password",
+
+html:`
+
+<h2>ExperienceHub</h2>
+
+<p>Click below to reset password.</p>
+
+<a href="${resetLink}">
+
+Reset Password
+
+</a>
+
+<p>This link expires in 15 minutes.</p>
+
+`
+
+});
+
+res.send("Password reset link sent.");
+
+});
 app.get("/profile",isLoggedIn, async function(req, res) {
     let user = await userModel.findOne({email:req.user.email});
     await user.populate("posts");
@@ -156,6 +216,58 @@ app.get("/like/:id", isLoggedIn, async function(req, res) {
 }
 
    res.redirect("/feed");
+});
+app.get("/reset/:token",async(req,res){
+
+const user=await userModel.findOne({
+
+resetToken:req.params.token,
+
+resetTokenExpire:{$gt:Date.now()}
+
+});
+
+if(!user){
+
+return res.send("Invalid or expired link.");
+
+}
+
+res.render("reset",{
+
+token:req.params.token
+
+});
+
+});
+app.post("/reset/:token",async(req,res){
+
+const user=await userModel.findOne({
+
+resetToken:req.params.token,
+
+resetTokenExpire:{$gt:Date.now()}
+
+});
+
+if(!user){
+
+return res.send("Invalid or expired link.");
+
+}
+
+const hash=await bcrypt.hash(req.body.password,10);
+
+user.password=hash;
+
+user.resetToken="";
+
+user.resetTokenExpire=null;
+
+await user.save();
+
+res.redirect("/login");
+
 });
 function isAdmin(req,res,next){
 
