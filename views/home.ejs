@@ -14,31 +14,49 @@
 
         body{
             background:#09090B;
-            overflow-x:hidden;
+            overflow-x:hidden; /* एक्स्ट्रा विड्थ को रोकने के लिए */
         }
 
         .hero-glow{
             position:absolute;
-            width:450px;
-            height:450px;
+            width:300px; /* मोबाइल के लिए छोटा ग्लो */
+            height:300px;
             background:#2563eb;
-            filter:blur(170px);
-            opacity:.18;
+            filter:blur(120px);
+            opacity:.15;
             border-radius:999px;
             z-index:0;
         }
 
+        @media (min-width: 768px) {
+            .hero-glow {
+                width: 450px;
+                height: 450px;
+                filter: blur(170px);
+                opacity: .18;
+            }
+        }
+
         .hero-glow2{
             position:absolute;
-            width:420px;
-            height:420px;
+            width:280px;
+            height:280px;
             background:#7c3aed;
-            filter:blur(170px);
-            opacity:.15;
+            filter:blur(120px);
+            opacity:.12;
             border-radius:999px;
             z-index:0;
             right:0;
             bottom:-100px;
+        }
+
+        @media (min-width: 768px) {
+            .hero-glow2 {
+                width: 420px;
+                height: 420px;
+                filter: blur(170px);
+                opacity: .15;
+            }
         }
     </style>
 </head>
@@ -50,147 +68,146 @@
     <div class="hero-glow2"></div>
 
     <!-- ================= NAVBAR ================= -->
-    <!-- ✅ Fix 4: Added Center Navigation Links (Stories & Why Us) -->
-    <nav class="max-w-7xl mx-auto flex justify-between items-center px-8 py-7 relative z-10">
-        <h1 class="text-3xl font-bold tracking-wide">⚡ ExperienceHub</h1>
+    <!-- ✅ मोबाइल पर पैडिंग px-4 और डेस्कटॉप पर px-8 की गई है -->
+    <nav class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-8 py-5 sm:py-7 relative z-10">
+        <!-- मोबाइल पर लोगो साइज़ छोटा (text-xl) और डेस्कटॉप पर text-3xl -->
+        <h1 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">⚡ ExperienceHub</h1>
         
         <div class="hidden md:flex items-center gap-8 text-zinc-400 font-medium">
             <a href="/feed" class="hover:text-white transition">Stories</a>
             <a href="#why" class="hover:text-white transition">Why Us</a>
         </div>
 
-        <div class="flex items-center gap-4">
-            <a href="/login" class="text-zinc-300 hover:text-white transition">Login</a>
-            <a href="/register" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-semibold transition">Get Started</a>
+        <!-- मोबाइल पर बटन्स का साइज़ और पैडिंग एडजस्ट की है -->
+        <div class="flex items-center gap-3 sm:gap-4">
+            <a href="/login" class="text-sm sm:text-base text-zinc-300 hover:text-white transition">Login</a>
+            <a href="/register" class="bg-blue-600 hover:bg-blue-700 px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl text-sm sm:text-semibold font-semibold transition">Get Started</a>
         </div>
     </nav>
 
     <!-- ================= HERO ================= -->
-    <!-- ✅ Fix 1: Hero size increased to pt-32 pb-40 -->
-    <section class="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-40 text-center">
-        <!-- ✅ Fix 2 & 3: Hero heading text size increased with premium gradient text effect -->
-        <h1 class="text-7xl md:text-8xl font-extrabold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent leading-tight tracking-tight">
+    <!-- ✅ मोबाइल पर pt-20 pb-24 ताकि हेडर बहुत नीचे न भागे -->
+    <section class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 md:pt-32 pb-24 md:pb-40 text-center">
+        <!-- ✅ सबसे ज़रूरी फिक्स: हेडिंग साइज़ मोबाइल के लिए text-4xl/text-5xl और बड़ी स्क्रीन के लिए 8xl किया -->
+        <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent leading-tight tracking-tight">
             ⚡ ExperienceHub
         </h1>
-        <h2 class="mt-6 text-2xl md:text-3xl font-semibold text-blue-400">Real People. Raw Stories. Real Impact.</h2>
-        <p class="mt-5 italic text-zinc-300 text-lg">"Your story today is someone's inspiration tomorrow."</p>
-        <p class="max-w-3xl mx-auto mt-8 text-zinc-400 text-xl leading-9">
+        <h2 class="mt-4 sm:mt-6 text-lg sm:text-xl md:text-3xl font-semibold text-blue-400">Real People. Raw Stories. Real Impact.</h2>
+        <p class="mt-4 italic text-zinc-300 text-sm sm:text-lg">"Your story today is someone's inspiration tomorrow."</p>
+        <p class="max-w-3xl mx-auto mt-6 text-zinc-400 text-sm sm:text-base md:text-xl leading-relaxed sm:leading-9">
             Discover authentic experiences shared by real people.
             Learn from others, share your own journey, and inspire millions through your story.
         </p>
 
         <a
         href="/register"
-        class="inline-flex items-center gap-3 mt-12 bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 hover:scale-105 transition duration-300 px-8 py-4 rounded-2xl text-lg font-semibold shadow-2xl">
+        class="inline-flex items-center gap-3 mt-10 bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 hover:scale-105 transition duration-300 px-6 py-3.5 sm:px-8 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold shadow-2xl">
         📖 Explore Stories
          </a>
 
-        <!-- Small Community Numbers -->
-        <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <!-- Small Community Numbers - गैप और टेक्स्ट साइज़ रिस्पॉन्सिव किया गया -->
+        <div class="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             <div>
-                <h2 class="text-4xl font-bold text-blue-400">1200+</h2>
-                <p class="text-zinc-500 mt-2">Experiences</p>
+                <h2 class="text-2xl sm:text-4xl font-bold text-blue-400">1200+</h2>
+                <p class="text-zinc-500 text-xs sm:text-sm mt-1 sm:mt-2">Experiences</p>
             </div>
             <div>
-                <h2 class="text-4xl font-bold text-purple-400">500+</h2>
-                <p class="text-zinc-500 mt-2">Members</p>
+                <h2 class="text-2xl sm:text-4xl font-bold text-purple-400">500+</h2>
+                <p class="text-zinc-500 text-xs sm:text-sm mt-1 sm:mt-2">Members</p>
             </div>
             <div>
-                <h2 class="text-4xl font-bold text-pink-400">20K+</h2>
-                <p class="text-zinc-500 mt-2">Likes</p>
+                <h2 class="text-2xl sm:text-4xl font-bold text-pink-400">20K+</h2>
+                <p class="text-zinc-500 text-xs sm:text-sm mt-1 sm:mt-2">Likes</p>
             </div>
             <div>
-                <h2 class="text-4xl font-bold text-green-400">10K+</h2>
-                <p class="text-zinc-500 mt-2">Stories Read</p>
+                <h2 class="text-2xl sm:text-4xl font-bold text-green-400">10K+</h2>
+                <p class="text-zinc-500 text-xs sm:text-sm mt-1 sm:mt-2">Stories Read</p>
             </div>
         </div>
     </section>
 
-    <!-- ✅ Fix (Important Change 1): Hero aur Stories ke beech dynamic divider -->
-    <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full my-20"></div>
+    <!-- Divider -->
+    <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full my-12 sm:my-20"></div>
 
     <!-- ================= STORIES SECTION (CONTAINER) ================= -->
-    <section class="max-w-7xl mx-auto px-6 py-12">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
         
-        <h2 class="text-4xl font-bold text-center mb-14">📖 Stories From Our Community</h2>
+        <h2 class="text-2xl sm:text-4xl font-bold text-center mb-10 sm:mb-14">📖 Stories From Our Community</h2>
 
         <!-- ================= LATEST STORIES ================= -->
-        <div class="mt-8">
-            <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">🆕 Latest Stories</h2>
-            <div class="grid md:grid-cols-3 gap-8">
+        <div class="mt-4">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 flex items-center gap-2 sm:gap-3">🆕 Latest Stories</h2>
+            <!-- md:grid-cols-3 और मोबाइल पर ऑटोमैटिक 1 कॉलम -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                 <% latestPosts.forEach(function(post){ %>
-                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 hover:border-blue-500 hover:-translate-y-2 transition duration-300 shadow-xl">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-5 sm:p-6 hover:border-blue-500 hover:-translate-y-2 transition duration-300 shadow-xl">
                     <div class="flex items-center gap-3 mb-4">
                         <% if(post.user.profilePic){ %>
-                            <img src="<%= post.user.profilePic %>" class="w-12 h-12 rounded-full object-cover border border-zinc-700">
+                            <img src="<%= post.user.profilePic %>" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border border-zinc-700">
                         <% } else { %>
-                            <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center font-bold">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600 flex items-center justify-center font-bold text-sm sm:text-base">
                                 <%= post.user.username.charAt(0).toUpperCase() %>
                             </div>
                         <% } %>
                         <div>
-                            <h3 class="font-semibold">@<%= post.user.username %></h3>
-                            <p class="text-xs text-zinc-500"><%= post.category %></p>
+                            <h3 class="font-semibold text-sm sm:text-base">@<%= post.user.username %></h3>
+                            <p class="text-[10px] sm:text-xs text-zinc-500"><%= post.category %></p>
                         </div>
                     </div>
 
                     <% if(post.image){ %>
-                    <img src="<%= post.image %>" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <img src="<%= post.image %>" class="w-full h-40 sm:h-48 object-cover rounded-2xl mb-4">
                     <% } %>
 
-                    <p class="text-zinc-300 leading-7"><%= post.content.substring(0,120) %>...</p>
+                    <p class="text-zinc-300 text-sm sm:text-base leading-relaxed sm:leading-7"><%= post.content.substring(0,120) %>...</p>
 
                     <div class="flex justify-between items-center mt-6">
-                        <!-- ✅ Fix 5: Appended Comments Array size inside stats footer -->
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
                             <span class="text-red-400">❤️ <%= post.likes.length %></span>
-                            <span class="text-zinc-500 text-sm">💬 <%= post.comments.length %> Comments</span>
+                            <span class="text-zinc-500"><%= post.comments.length %> Comments</span>
                         </div>
-                        <!-- ✅ Fix 6: Custom Premium CTA referencing specific detailed paths -->
-                        <a href="/story/<%= post._id %>" class="text-blue-400 hover:text-blue-300 font-semibold text-sm">📖 Read Story →</a>
+                        <a href="/story/<%= post._id %>" class="text-blue-400 hover:text-blue-300 font-semibold text-xs sm:text-sm">Read Story →</a>
                     </div>
                 </div>
                 <% }) %>
             </div>
         </div>
 
-        <!-- ✅ Fix (Important Change 2): Latest aur Most Loved ke beech premium spacing divider -->
-        <div class="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full my-20"></div>
+        <!-- Divider -->
+        <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full my-12 sm:my-20"></div>
 
         <!-- ================= MOST LOVED STORIES ================= -->
-        <div class="mt-24">
-            <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">❤️ Most Loved Stories</h2>
-            <div class="grid md:grid-cols-3 gap-8">
+        <div class="mt-12 sm:mt-24">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 flex items-center gap-2 sm:gap-3">❤️ Most Loved Stories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                 <% lovedPosts.forEach(function(post){ %>
-                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 hover:border-pink-500 hover:-translate-y-2 transition duration-300 shadow-xl">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-5 sm:p-6 hover:border-pink-500 hover:-translate-y-2 transition duration-300 shadow-xl">
                     <div class="flex items-center gap-3 mb-4">
                         <% if(post.user.profilePic){ %>
-                            <img src="<%= post.user.profilePic %>" class="w-12 h-12 rounded-full object-cover border border-zinc-700">
+                            <img src="<%= post.user.profilePic %>" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border border-zinc-700">
                         <% } else { %>
-                            <div class="w-12 h-12 rounded-full bg-pink-600 flex items-center justify-center font-bold">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-pink-600 flex items-center justify-center font-bold text-sm sm:text-base">
                                 <%= post.user.username.charAt(0).toUpperCase() %>
                             </div>
                         <% } %>
                         <div>
-                            <h3 class="font-semibold">@<%= post.user.username %></h3>
-                            <p class="text-xs text-zinc-500"><%= post.category %></p>
+                            <h3 class="font-semibold text-sm sm:text-base">@<%= post.user.username %></h3>
+                            <p class="text-[10px] sm:text-xs text-zinc-500"><%= post.category %></p>
                         </div>
                     </div>
 
                     <% if(post.image){ %>
-                    <img src="<%= post.image %>" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <img src="<%= post.image %>" class="w-full h-40 sm:h-48 object-cover rounded-2xl mb-4">
                     <% } %>
 
-                    <p class="text-zinc-300 leading-7"><%= post.content.substring(0,120) %>...</p>
+                    <p class="text-zinc-300 text-sm sm:text-base leading-relaxed sm:leading-7"><%= post.content.substring(0,120) %>...</p>
 
                     <div class="flex justify-between items-center mt-6">
-                        <!-- ✅ Fix 5: Appended Comments Array size inside stats footer -->
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
                             <span class="text-red-400">❤️ <%= post.likes.length %></span>
-                            <span class="text-zinc-500 text-sm">💬 <%= post.comments.length %> Comments</span>
+                            <span class="text-zinc-500"><%= post.comments.length %> Comments</span>
                         </div>
-                        <!-- ✅ Fix 6: Custom Premium CTA referencing specific detailed paths -->
-                        <a href="/story/<%= post._id %>" class="text-pink-400 hover:text-pink-300 font-semibold text-sm">📖 Read Story →</a>
+                        <a href="/story/<%= post._id %>" class="text-pink-400 hover:text-pink-300 font-semibold text-xs sm:text-sm">Read Story →</a>
                     </div>
                 </div>
                 <% }) %>
@@ -200,65 +217,65 @@
     </section>
 
     <!-- ================= WHY EXPERIENCEHUB ================= -->
-    <!-- ✅ Fix 7: Section is matched with id="why" for smoother in-page navigation anchors -->
-    <section id="why" class="max-w-7xl mx-auto px-6 py-24">
-        <h2 class="text-4xl font-bold text-center mb-5">❤️ Why Choose ExperienceHub?</h2>
-        <p class="text-zinc-400 text-center max-w-2xl mx-auto mb-16">
+    <section id="why" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-24">
+        <h2 class="text-2xl sm:text-4xl font-bold text-center mb-4 sm:mb-5">❤️ Why Choose ExperienceHub?</h2>
+        <p class="text-zinc-400 text-center max-w-2xl mx-auto mb-10 sm:mb-16 text-sm sm:text-base">
             ExperienceHub isn't just another social platform.
             It's a place where real people share real experiences
             to inspire, guide and help others.
         </p>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- मोबाइल पर 1 कॉलम, टैबलेट पर 2, और डेस्कटॉप पर 4 कॉलम्स -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             <!-- Card 1 -->
-            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 text-center hover:border-blue-500 hover:-translate-y-2 transition duration-300">
-                <div class="text-5xl mb-6">📝</div>
-                <h3 class="text-2xl font-bold mb-4">Share Stories</h3>
-                <p class="text-zinc-400 leading-7">Share your real-life experiences and let your journey inspire thousands of people.</p>
+            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 text-center hover:border-blue-500 hover:-translate-y-2 transition duration-300">
+                <div class="text-4xl sm:text-5xl mb-4 sm:mb-6">📝</div>
+                <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Share Stories</h3>
+                <p class="text-zinc-400 text-sm sm:text-base leading-relaxed sm:leading-7">Share your real-life experiences and let your journey inspire thousands of people.</p>
             </div>
 
             <!-- Card 2 -->
-            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 text-center hover:border-purple-500 hover:-translate-y-2 transition duration-300">
-                <div class="text-5xl mb-6">📚</div>
-                <h3 class="text-2xl font-bold mb-4">Learn From Others</h3>
-                <p class="text-zinc-400 leading-7">Read authentic experiences and avoid mistakes others have already faced.</p>
+            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 text-center hover:border-purple-500 hover:-translate-y-2 transition duration-300">
+                <div class="text-4xl sm:text-5xl mb-4 sm:mb-6">📚</div>
+                <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Learn From Others</h3>
+                <p class="text-zinc-400 text-sm sm:text-base leading-relaxed sm:leading-7">Read authentic experiences and avoid mistakes others have already faced.</p>
             </div>
 
             <!-- Card 3 -->
-            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 text-center hover:border-pink-500 hover:-translate-y-2 transition duration-300">
-                <div class="text-5xl mb-6">🤝</div>
-                <h3 class="text-2xl font-bold mb-4">Build Community</h3>
-                <p class="text-zinc-400 leading-7">Connect with people through meaningful stories instead of meaningless posts.</p>
+            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 text-center hover:border-pink-500 hover:-translate-y-2 transition duration-300">
+                <div class="text-4xl sm:text-5xl mb-4 sm:mb-6">🤝</div>
+                <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Build Community</h3>
+                <p class="text-zinc-400 text-sm sm:text-base leading-relaxed sm:leading-7">Connect with people through meaningful stories instead of meaningless posts.</p>
             </div>
 
             <!-- Card 4 -->
-            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 text-center hover:border-green-500 hover:-translate-y-2 transition duration-300">
-                <div class="text-5xl mb-6">🚀</div>
-                <h3 class="text-2xl font-bold mb-4">Inspire Others</h3>
-                <p class="text-zinc-400 leading-7">Every experience can change someone's life. Your story could be the next inspiration.</p>
+            <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 text-center hover:border-green-500 hover:-translate-y-2 transition duration-300">
+                <div class="text-4xl sm:text-5xl mb-4 sm:mb-6">🚀</div>
+                <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Inspire Others</h3>
+                <p class="text-zinc-400 text-sm sm:text-base leading-relaxed sm:leading-7">Every experience can change someone's life. Your story could be the next inspiration.</p>
             </div>
         </div>
     </section>
 
     <!-- ================= FOOTER ================= -->
-    <footer class="border-t border-zinc-800 mt-16">
-        <div class="max-w-7xl mx-auto px-6 py-16">
+    <footer class="border-t border-zinc-800 mt-12 sm:mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-4">⚡ ExperienceHub</h2>
-                <p class="text-zinc-400 text-lg">Real People. Raw Stories. Real Impact.</p>
-                <p class="italic text-zinc-500 mt-4">"Your story today is someone's inspiration tomorrow."</p>
-                <!-- ✅ Fix 8: Appended custom geopolitical storytelling tag inside footer info -->
-                <p class="text-zinc-500 text-sm mt-3">Made in 🇮🇳 for storytellers around the world.</p>
+                <h2 class="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4">⚡ ExperienceHub</h2>
+                <p class="text-zinc-400 text-sm sm:text-lg">Real People. Raw Stories. Real Impact.</p>
+                <p class="italic text-zinc-500 mt-3 sm:mt-4 text-xs sm:text-sm">"Your story today is someone's inspiration tomorrow."</p>
+                <p class="text-zinc-500 text-xs mt-3">Made in 🇮🇳 for storytellers around the world.</p>
             </div>
 
-            <div class="flex justify-center gap-8 mt-12 text-zinc-400">
+            <!-- लिंक्स मोबाइल पर भी सुंदर तरीके से रैप होंगे -->
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-8 mt-8 sm:mt-12 text-zinc-400 text-sm sm:text-base">
                 <a href="/" class="hover:text-white transition">Home</a>
                 <a href="/feed" class="hover:text-white transition">Explore</a>
                 <a href="/login" class="hover:text-white transition">Login</a>
                 <a href="/register" class="hover:text-white transition">Register</a>
             </div>
 
-            <div class="mt-12 text-center text-zinc-600 text-sm">
+            <div class="mt-8 sm:mt-12 text-center text-zinc-600 text-xs sm:text-sm">
                 © 2026 ExperienceHub • Crafted with ❤️ by Shreyansh Yadav
             </div>
         </div>
