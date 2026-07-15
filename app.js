@@ -101,59 +101,53 @@ app.get("/forgot",(req,res)=>{
 res.render("forgot");
 
 });
-app.post("/forgot",async(req,res){
 
-const user=await userModel.findOne({
 
-email:req.body.email
+app.post("/forgot", async function(req, res){
 
-});
+    try{
 
-if(!user){
+        const user = await userModel.findOne({
+            email: req.body.email
+        });
 
-return res.send("No account found.");
+        if(!user){
+            return res.send("No account found.");
+        }
 
-}
+        const token = crypto.randomBytes(32).toString("hex");
 
-const token=crypto.randomBytes(32).toString("hex");
+        user.resetToken = token;
+        user.resetTokenExpire = Date.now() + 1000 * 60 * 15;
 
-user.resetToken=token;
+        await user.save();
 
-user.resetTokenExpire=Date.now()+1000*60*15;
+        const resetLink = `${process.env.BASE_URL}/reset/${token}`;
 
-await user.save();
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: user.email,
+            subject: "Reset Your ExperienceHub Password",
+            html: `
+                <h2>ExperienceHub</h2>
+                <p>Click below to reset your password.</p>
+                <a href="${resetLink}">Reset Password</a>
+                <p>This link will expire in 15 minutes.</p>
+            `
+        });
 
-const resetLink=`${process.env.BASE_URL}/reset/${token}`;
+        res.send("Password reset link sent successfully.");
 
-await transporter.sendMail({
+    }catch(err){
 
-from:process.env.EMAIL_USER,
+        console.log(err);
 
-to:user.email,
+        res.status(500).send("Failed to send email.");
 
-subject:"Reset Password",
-
-html:`
-
-<h2>ExperienceHub</h2>
-
-<p>Click below to reset password.</p>
-
-<a href="${resetLink}">
-
-Reset Password
-
-</a>
-
-<p>This link expires in 15 minutes.</p>
-
-`
+    }
 
 });
 
-res.send("Password reset link sent.");
-
-});
 app.get("/profile",isLoggedIn, async function(req, res) {
     let user = await userModel.findOne({email:req.user.email});
     await user.populate("posts");
@@ -217,7 +211,7 @@ app.get("/like/:id", isLoggedIn, async function(req, res) {
 
    res.redirect("/feed");
 });
-app.get("/reset/:token",async(req,res){
+app.get("/reset/:token", async (req, res) => {
 
 const user=await userModel.findOne({
 
@@ -240,7 +234,7 @@ token:req.params.token
 });
 
 });
-app.post("/reset/:token",async(req,res){
+app.post("/reset/:token", async (req, res) => {
 
 const user=await userModel.findOne({
 
@@ -600,8 +594,8 @@ app.get("/feed", isLoggedIn, async function(req, res){
 
         } else {
 
-            // Latest (Default)
-            posts.sort((a, b) => b.date - a.date);
+            // ✅ फिक्स 4: date की जगह अब सही तरीके से createdAt से लेटेस्ट पोस्ट्स सॉर्ट होंगी
+            posts.sort((a, b) => b.createdAt - a.createdAt);
 
         }
 
@@ -660,9 +654,8 @@ app.get("/search", isLoggedIn, async function(req,res){
     });
 
 });
-app.get("/forgot-password", function(req,res){
-    res.render("forgot-password");
-});
+
+
 app.get("/follow/:id", isLoggedIn, async function(req,res){
 
     let currentUser = await userModel.findById(req.user.userid);
