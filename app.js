@@ -124,7 +124,8 @@ app.post("/forgot", async function(req, res){
 
         const resetLink = `${process.env.BASE_URL}/reset/${token}`;
 
-        await transporter.sendMail({
+        // ✅ यहाँ नया डिबगिंग कोड जोड़ दिया गया है
+        const info = await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: user.email,
             subject: "Reset Your ExperienceHub Password",
@@ -135,6 +136,15 @@ app.post("/forgot", async function(req, res){
                 <p>This link will expire in 15 minutes.</p>
             `
         });
+        
+        console.log("=================================");
+        console.log("Email Sent Successfully");
+        console.log("To :", user.email);
+        console.log("Message ID :", info.messageId);
+        console.log("Response :", info.response);
+        console.log("Accepted :", info.accepted);
+        console.log("Rejected :", info.rejected);
+        console.log("=================================");
 
         res.send("Password reset link sent successfully.");
 
