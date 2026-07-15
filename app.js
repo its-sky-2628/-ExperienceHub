@@ -654,8 +654,6 @@ app.get("/search", isLoggedIn, async function(req,res){
     });
 
 });
-
-
 app.get("/follow/:id", isLoggedIn, async function(req,res){
 
     let currentUser = await userModel.findById(req.user.userid);
